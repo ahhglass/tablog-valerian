@@ -1,0 +1,130 @@
+/*! Tablo Theme | https://tablo.me */
+
+@import 'tailwindcss';
+
+/* purgecss start ignore */
+
+@import './buttons';
+@import './copy';
+
+@theme {
+	--color-text: var(--color-neutral-950);
+	--color-background: var(--color-white);
+	--color-shade: color-mix(in srgb, var(--color-text), transparent 95%);
+
+	--spacing-container: 54rem;
+
+	/* Fluid type: ~320px → ~768px+ (clamp min, preferred, max) */
+  --text-base: clamp(0.875rem, 0.8125rem + 0.4vw, 1.125rem);
+
+	--text-xl: clamp(0.875rem, 0.8125rem + 0.55vw, 1.25rem);
+	--text-xl--line-height: 1.5;
+
+	--text-3xl: clamp(1.25rem, 0.9375rem + 2vw, 1.875rem);
+	--text-3xl--line-height: 1.2;
+
+	--text-4xl: clamp(1.5rem, 1.0625rem + 2.5vw, 2.25rem);
+	--text-4xl--line-height: 1.15;
+
+	--text-5xl: clamp(1.625rem, 1rem + 3.5vw, 3rem);
+	--text-5xl--line-height: 1.1;
+
+	--text-metadata: clamp(0.875rem, 0.8125rem + 0.45vw, 1.25rem);
+	--text-metadata--line-height: 1.4;
+
+	--text-action: clamp(0.875rem, 0.8125rem + 0.4vw, 1.125rem);
+	--text-action--line-height: 1.4;
+}
+
+:root[data-theme='dark'] {
+	--color-text: var(--color-neutral-100);
+	--color-background: var(--color-neutral-950);
+}
+
+@media (prefers-color-scheme: dark) {
+	:root:not([data-theme='light']) {
+		--color-text: var(--color-neutral-100);
+		--color-background: var(--color-neutral-950);
+	}
+}
+
+@layer components {
+	.theme-toggle {
+		display: grid;
+		place-items: center;
+		width: 3rem;
+		height: 3rem;
+		flex-shrink: 0;
+		border-radius: 9999px;
+		transition: background-color 200ms ease, color 200ms ease;
+	}
+
+	.theme-toggle__icon {
+		grid-area: 1 / 1;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	/* light: moon (switch to dark) */
+	.theme-toggle__icon--sun {
+		visibility: hidden;
+	}
+
+	.theme-toggle__icon--moon {
+		visibility: visible;
+	}
+
+	/* dark: sun (switch to light) */
+	html[data-theme='dark'] .theme-toggle__icon--sun {
+		visibility: visible;
+	}
+
+	html[data-theme='dark'] .theme-toggle__icon--moon {
+		visibility: hidden;
+	}
+
+	@media (prefers-color-scheme: dark) {
+		html:not([data-theme='light']) .theme-toggle__icon--sun {
+			visibility: visible;
+		}
+
+		html:not([data-theme='light']) .theme-toggle__icon--moon {
+			visibility: hidden;
+		}
+	}
+
+	.theme-toggle:hover {
+		color: var(--color-background);
+		background-color: var(--color-text);
+	}
+}
+
+@layer base {
+	html {
+		color-scheme: light;
+	}
+
+	html[data-theme='dark'] {
+		color-scheme: dark;
+	}
+
+	@media (prefers-color-scheme: dark) {
+		html:not([data-theme='light']) {
+			color-scheme: dark;
+		}
+	}
+
+	body {
+		color: var(--color-text);
+		background-color: var(--color-background);
+		transition: background-color 200ms ease, color 200ms ease;
+		text-underline-offset: 2px;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+		& * {
+			text-decoration-thickness: 1px;
+		}
+	}
+}
