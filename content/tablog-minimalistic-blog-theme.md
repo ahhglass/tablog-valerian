@@ -6,8 +6,8 @@ pinned: true
 
 <script>
 import config from '/src/config'
-import Action from '$lib/Action.svelte'
-import Button from '$lib/Button.svelte'
+import Action from '$lib/components/Action.svelte'
+import Button from '$lib/components/Button.svelte'
 </script>
 
 Перед вами мой блог на Tablog — минималистичной теме, где ничего лишнего не отвлекает от текста. Я собрал его так, чтобы писать и читать было спокойно: аккуратная вёрстка, тёмная тема, архив записей — всё под рукой.

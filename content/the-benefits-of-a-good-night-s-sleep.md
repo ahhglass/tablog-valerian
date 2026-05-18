@@ -6,7 +6,7 @@ date: 2022-05-15
 ---
 
 <script>
-import Image from '$lib/Image.svelte'
+import Image from '$lib/components/Image.svelte'
 </script>
 
 Хороший ночной сон необходим для физического и психического здоровья. Во сне тело и разум отдыхают и восстанавливаются, готовя нас к задачам нового дня.
