@@ -1,6 +1,7 @@
 /*! Tablo Theme | https://tablo.me */
 
 @import 'tailwindcss';
+@plugin 'daisyui';
 
 /* purgecss start ignore */
 
@@ -15,6 +16,8 @@
 	--spacing-container: 54rem;
 
 	/* Fluid type: ~320px → ~768px+ (clamp min, preferred, max) */
+  --text-xs: clamp(0.625rem, 0.5625rem + 0.3vw, 0.875rem);
+
   --text-base: clamp(0.875rem, 0.8125rem + 0.4vw, 1.125rem);
 
 	--text-xl: clamp(0.875rem, 0.8125rem + 0.55vw, 1.25rem);
@@ -49,6 +52,13 @@
 }
 
 @layer components {
+	/* Tooltip wrapper: daisyUI needs inline-block + relative, not theme-toggle grid */
+	.theme-toggle-wrap {
+		display: inline-block;
+		flex-shrink: 0;
+		line-height: 0;
+	}
+
 	.theme-toggle {
 		display: grid;
 		place-items: center;
@@ -64,35 +74,7 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
-    transform: scale(1.25);
-	}
-
-	/* light: moon (switch to dark) */
-	.theme-toggle__icon--sun {
-		visibility: hidden;
-	}
-
-	.theme-toggle__icon--moon {
-		visibility: visible;
-	}
-
-	/* dark: sun (switch to light) */
-	html[data-theme='dark'] .theme-toggle__icon--sun {
-		visibility: visible;
-	}
-
-	html[data-theme='dark'] .theme-toggle__icon--moon {
-		visibility: hidden;
-	}
-
-	@media (prefers-color-scheme: dark) {
-		html:not([data-theme='light']) .theme-toggle__icon--sun {
-			visibility: visible;
-		}
-
-		html:not([data-theme='light']) .theme-toggle__icon--moon {
-			visibility: hidden;
-		}
+		transform: scale(1.25);
 	}
 
 	.theme-toggle:hover {
@@ -114,22 +96,6 @@
 		transform: scale(1.2);
 		align-items: center;
 		justify-content: center;
-	}
-
-	.sound-toggle__icon--on {
-		visibility: visible;
-	}
-
-	.sound-toggle__icon--off {
-		visibility: hidden;
-	}
-
-	.sound-toggle--muted .sound-toggle__icon--on {
-		visibility: hidden;
-	}
-
-	.sound-toggle--muted .sound-toggle__icon--off {
-		visibility: visible;
 	}
 
 	.sound-toggle__icon :global(svg) {
@@ -166,4 +132,15 @@
 			text-decoration-thickness: 1px;
 		}
 	}
+}
+
+/* Unlayered: beats daisyUI @layer utilities (--tt-bg defaults to --color-neutral) */
+.tooltip {
+	--tt-bg: var(--color-text);
+}
+
+.tooltip > .tooltip-content,
+.tooltip[data-tip]::before {
+	color: var(--color-background);
+	background-color: var(--color-text);
 }
