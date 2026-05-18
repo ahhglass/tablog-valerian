@@ -149,3 +149,19 @@
 	color: var(--color-background);
 	background-color: var(--color-text);
 }
+
+/* tooltipDismiss action: hide stuck touch :hover / :focus-visible */
+.tooltip.tooltip-suppressed > .tooltip-content,
+.tooltip.tooltip-suppressed[data-tip]::before,
+.tooltip.tooltip-suppressed::after {
+	opacity: 0 !important;
+	pointer-events: none;
+}
+
+.theme-toggle.touch-hover-suppressed,
+.theme-toggle.touch-hover-suppressed:hover,
+.theme-toggle-wrap.tooltip-suppressed .theme-toggle,
+.theme-toggle-wrap.tooltip-suppressed .theme-toggle:hover {
+	color: var(--color-text);
+	background-color: transparent;
+}

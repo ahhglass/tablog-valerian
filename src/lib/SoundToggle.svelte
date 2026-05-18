@@ -1,6 +1,7 @@
 <script>
 	import VolumeOff from '$lib/icons/VolumeOff.svelte';
 	import VolumeOn from '$lib/icons/VolumeOn.svelte';
+	import { tooltipDismiss } from '$lib/actions/tooltipDismiss';
 	import { isSoundEnabled, playClick, setSoundEnabled } from '$lib/sound';
 	import { onMount } from 'svelte';
 
@@ -16,7 +17,10 @@
 	}
 </script>
 
-<label class="sound-toggle swap tooltip tooltip-right md:tooltip-top cursor-pointer">
+<label
+	class="sound-toggle swap tooltip tooltip-right md:tooltip-top cursor-pointer"
+	use:tooltipDismiss={600}
+>
 	<div class="tooltip-content">
 		<div class="text-base md:text-xs">
 			{enabled ? 'Выключить звуки' : 'Включить звуки'}
