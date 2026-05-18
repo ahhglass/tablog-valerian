@@ -22,8 +22,8 @@
 			{#if post.date || post.author || post.tags}
 				<aside class="text-metadata flex flex-row flex-wrap gap-x-6 px-4 py-3 md:px-8">
 					{#if post.date}
-						<a class="flex flex-row gap-2 py-1" href="/{post.id}"
-							><span class="flex flex-row"
+						<a class="flex flex-row items-center gap-2 py-1" href="/{post.id}"
+							><span class="inline-flex shrink-0 items-center justify-center leading-none"
 								>{#if post.pinned}<PinIcon />{:else}<CalendarIcon />{/if}</span
 							><span class="underline"
 								>{format(new Date(post.date), config.dateFormat, {
