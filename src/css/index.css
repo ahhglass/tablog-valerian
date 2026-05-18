@@ -103,6 +103,11 @@
 		width: 100%;
 		height: 100%;
 	}
+
+	.archive-link--closed {
+		cursor: not-allowed;
+		color: color-mix(in srgb, var(--color-text), transparent 35%);
+	}
 }
 
 @layer base {

@@ -16,8 +16,10 @@
 		<div class="copy text-xl">
 			{#if page.status === 404}
 				<p>Страница не найдена.</p>
+			{:else if page.status === 403}
+				<p>{page.error?.message ?? 'Доступ к этой записи закрыт'}.</p>
 			{:else}
-				<p>{page.error.message}.</p>
+				<p>{page.error?.message}.</p>
 			{/if}
 		</div>
 	</div>

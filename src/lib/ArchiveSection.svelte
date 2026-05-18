@@ -6,6 +6,7 @@
 	import Action from '$lib/Action.svelte';
 	import Button from '$lib/Button.svelte';
 	import Header from '$lib/Header.svelte';
+	import Lock from '$lib/icons/Lock.svelte';
 	import PinIcon from '$lib/icons/PinIcon.svelte';
 	import ArrowRightIcon from '$lib/icons/ArrowRight.svelte';
 
@@ -20,19 +21,42 @@
 		<ul class="text-metadata space-y-2 sm:space-y-0">
 			{#each posts as item (item.id)}
 				<li>
-					<a
-						class="archive-link block py-1 sm:flex sm:flex-row sm:items-start sm:gap-4"
-						href="/{item.id}"
-					>
-						<span class="block">
-							{#if item.pinned}<span class="float-left mr-1 flex"><PinIcon /></span>{/if}
-							<span class="underline sm:flex-1">{item.title}</span>
-						</span>
-						<span class="mt-3 min-w-4 flex-1 border-b border-dashed pt-0.5 text-current/20"></span>
-						<span class="whitespace-nowrap text-current/60 sm:text-current"
-							>{format(new Date(item.date), config.dateFormat, { locale: config.dateLocale })}</span
+					{#if item.closed}
+						<span
+							class="archive-link archive-link--closed block py-1 sm:flex sm:flex-row sm:items-start sm:gap-4"
+							title="Запись закрыта"
 						>
-					</a>
+							<span class="block">
+								{#if item.pinned}<span class="float-left mr-1 flex"><PinIcon /></span>{/if}
+								<span class="float-left mr-1 flex"><Lock /></span>
+								<span class="underline sm:flex-1">{item.title}</span>
+							</span>
+							<span class="mt-3 min-w-4 flex-1 border-b border-dashed pt-0.5 text-current/20"
+							></span>
+							<span class="whitespace-nowrap text-current/60 sm:text-current"
+								>{format(new Date(item.date), config.dateFormat, {
+									locale: config.dateLocale,
+								})}</span
+							>
+						</span>
+					{:else}
+						<a
+							class="archive-link block py-1 sm:flex sm:flex-row sm:items-start sm:gap-4"
+							href="/{item.id}"
+						>
+							<span class="block">
+								{#if item.pinned}<span class="float-left mr-1 flex"><PinIcon /></span>{/if}
+								<span class="underline sm:flex-1">{item.title}</span>
+							</span>
+							<span class="mt-3 min-w-4 flex-1 border-b border-dashed pt-0.5 text-current/20"
+							></span>
+							<span class="whitespace-nowrap text-current/60 sm:text-current"
+								>{format(new Date(item.date), config.dateFormat, {
+									locale: config.dateLocale,
+								})}</span
+							>
+						</a>
+					{/if}
 				</li>
 			{/each}
 		</ul>

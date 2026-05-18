@@ -9,10 +9,12 @@
 
 <SEO
 	title={`${config.siteTitle} — ${config.siteTagline}`}
-	description={data.post.description}
+	description={data.post?.description ?? config.siteTagline}
 	og={{ title: config.siteTagline }}
 />
 
-<PostSection post={data.post} />
+{#if data.post}
+	<PostSection post={data.post} />
+{/if}
 
 <ArchiveSection />

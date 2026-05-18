@@ -11,9 +11,26 @@ const pages = Object.entries(import.meta.glob('/content/**/*.md', { eager: true 
 	}))
 	.filter((x) => x.meta && !x.meta.draft);
 
+/** @param {Record<string, unknown> | undefined} meta */
+export function isClosed(meta) {
+	const value = meta?.closedness;
+	if (value === true) return true;
+	if (typeof value === 'string') {
+		const normalized = value.trim().toLowerCase();
+		return normalized === 'yes' || normalized === 'true';
+	}
+	return false;
+}
+
+/** @param {string} id */
+export function isClosedPage(id) {
+	const page = pages.find((x) => x.id === id);
+	return Boolean(page && isClosed(page.meta));
+}
+
 export function loadPages() {
 	return pages
-		.filter((x) => !x.meta.date)
+		.filter((x) => !x.meta.date && !isClosed(x.meta))
 		.sort((a, b) => a.id.localeCompare(b.id))
 		.map((x) => ({
 			id: x.id,
@@ -43,6 +60,7 @@ export function loadPosts(props) {
 				title: page.meta.title,
 				date: page.meta.date,
 				pinned: page.meta.pinned,
+				closed: isClosed(page.meta),
 				author: page.meta.author,
 				authorId: slugify(page.meta.author),
 				tags: parseTags(page.meta.tags),
@@ -56,7 +74,7 @@ export function loadPosts(props) {
 
 export function loadPage(id) {
 	const page = pages.find((x) => x.id === id);
-	if (!page) return;
+	if (!page || isClosed(page.meta)) return;
 	const content = renderContentBody(page.Page);
 	const stats = getReadingStats(content);
 

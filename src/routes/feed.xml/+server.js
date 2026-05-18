@@ -5,7 +5,7 @@ export function GET({ url }) {
 	const posts = loadPosts({
 		pinned: false,
 		description: true,
-	});
+	}).filter((post) => !post.closed);
 
 	return new Response(
 		`<?xml version='1.0' encoding='utf-8'?>

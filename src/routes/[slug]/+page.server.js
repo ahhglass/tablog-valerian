@@ -1,8 +1,12 @@
 import { error } from '@sveltejs/kit';
 
-import { loadPage } from '$lib/content';
+import { isClosedPage, loadPage } from '$lib/content';
 
 export async function load({ params }) {
+	if (isClosedPage(params.slug)) {
+		error(403, { message: 'Эта запись закрыта' });
+	}
+
 	const post = loadPage(params.slug);
 
 	if (!post) {
