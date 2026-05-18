@@ -18,7 +18,7 @@
 		const onPointerUp = (event) => {
 			const target = event.target;
 			if (!(target instanceof Element)) return;
-			if (!target.closest('button, a.button')) return;
+			if (!target.closest('button, a.button, a.site-logo, footer a')) return;
 			playClick();
 		};
 

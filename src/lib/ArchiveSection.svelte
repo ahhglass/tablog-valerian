@@ -20,7 +20,10 @@
 		<ul class="text-metadata space-y-2 sm:space-y-0">
 			{#each posts as item (item.id)}
 				<li>
-					<a class="block py-1 sm:flex sm:flex-row sm:items-start sm:gap-4" href="/{item.id}">
+					<a
+						class="archive-link block py-1 sm:flex sm:flex-row sm:items-start sm:gap-4"
+						href="/{item.id}"
+					>
 						<span class="block">
 							{#if item.pinned}<span class="float-left mr-1 flex"><PinIcon /></span>{/if}
 							<span class="underline sm:flex-1">{item.title}</span>

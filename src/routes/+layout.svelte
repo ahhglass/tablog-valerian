@@ -27,7 +27,7 @@
 	<header class="flex flex-row items-center justify-between px-4 py-8 md:p-8">
 		<figure>
 			<a
-				class="flex flex-row items-center gap-4 transition-transform duration-200 hover:scale-[1.035] active:scale-[0.98]"
+				class="site-logo flex flex-row items-center gap-4 transition-transform duration-200 hover:scale-[1.035] active:scale-[0.98]"
 				href="/"
 				title={config.siteTitle}
 			>
@@ -69,17 +69,19 @@
 		</nav>
 
 		<div class="copy px-4 py-8 text-xl md:p-8">
-			<p>
-				&copy; {new Date().getFullYear()}
-				{config.siteTitle} <span class="mx-2 inline-block text-current/20">|</span> На базе
-				<a href={config.themeUrl} target="_blank" rel="external noreferrer"
-					>темы {config.themeName}</a
-				>
-				для SvelteKit в редакции
-				<a href={config.authorUrl}>{config.authorName}</a>
-				<span class="mx-2 inline-block text-current/20">|</span>
+			<div class="flex flex-wrap items-center gap-y-1">
+				<p class="m-0">
+					&copy; {new Date().getFullYear()}
+					{config.siteTitle} <span class="mx-2 inline-block text-current/20">|</span> На базе
+					<a href={config.themeUrl} target="_blank" rel="external noreferrer"
+						>темы {config.themeName}</a
+					>
+					для SvelteKit в редакции
+					<a href={config.authorUrl}>{config.authorName}</a>
+				</p>
+				<span class="mx-3 inline-block text-current/20">|</span>
 				<SoundToggle />
-			</p>
+			</div>
 		</div>
 	</footer>
 </div>

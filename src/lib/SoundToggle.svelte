@@ -15,19 +15,15 @@
 </script>
 
 <button
-	class="sound-toggle inline-flex cursor-pointer items-center gap-1 underline-offset-2 hover:underline"
+	class="sound-toggle"
+	class:sound-toggle--muted={!enabled}
 	type="button"
 	onclick={toggle}
 	aria-label={enabled ? 'Выключить звуки' : 'Включить звуки'}
 	aria-pressed={enabled}
 	title={enabled ? 'Выключить звуки' : 'Включить звуки'}
 >
-	<span class="inline-flex shrink-0 items-center text-[1.15em] leading-none [&_svg]:block">
-		{#if enabled}
-			<VolumeOn />
-		{:else}
-			<VolumeOff />
-		{/if}
-	</span>
+	<span class="sound-toggle__icon sound-toggle__icon--on" aria-hidden="true"><VolumeOn /></span>
+	<span class="sound-toggle__icon sound-toggle__icon--off" aria-hidden="true"><VolumeOff /></span>
 	<span class="sr-only">{enabled ? 'Звук вкл.' : 'Звук выкл.'}</span>
 </button>
