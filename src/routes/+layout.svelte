@@ -70,7 +70,7 @@
 				<a href={config.themeUrl} target="_blank" rel="external noreferrer"
 					>темы {config.themeName}</a
 				>
-				для SvelteKit ·
+				для SvelteKit в редакции
 				<a href={config.authorUrl}>{config.authorName}</a>
 			</p>
 		</div>
