@@ -14,7 +14,10 @@ const config = {
 	themeName: 'Tablog',
 	themeUrl: 'https://github.com/ahhglass/tablog-valerian',
 
-	social: [],
+	social: [
+		{ label: 'GitHub', href: 'https://github.com/ahhglass' },
+		{ label: 'Telegram', href: 'https://t.me/sad_lx4d' },
+	],
 };
 
 export default config;

@@ -49,11 +49,12 @@
 				{#each config.social as item (item.href)}
 					<li>
 						<a
-							class="flex flex-row gap-0.5 p-2"
+							class="inline-flex flex-row items-center gap-1 p-2"
 							href={item.href}
 							target="_blank"
 							rel="external noreferrer nofollow"
-							><span class="underline">{item.label}</span><span class="text-current/20"
+							><span class="underline">{item.label}</span><span
+								class="inline-flex shrink-0 items-center self-center text-[1.15em] leading-none text-current/20 [&_svg]:block"
 								><ArrowUpRightIcon /></span
 							></a
 						>
