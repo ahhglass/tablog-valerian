@@ -17,7 +17,7 @@
 
 <div class="theme-toggle-wrap tooltip tooltip-left md:tooltip-bottom">
 	<div class="tooltip-content">
-		<div class="text-xs">
+		<div class="text-base md:text-xs">
 			{dark ? 'Включить светлую тему' : 'Включить тёмную тему'}
 		</div>
 	</div>

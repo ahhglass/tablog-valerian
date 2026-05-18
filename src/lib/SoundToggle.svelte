@@ -16,9 +16,9 @@
 	}
 </script>
 
-<label class="sound-toggle swap tooltip cursor-pointer">
+<label class="sound-toggle swap tooltip tooltip-right md:tooltip-top cursor-pointer">
 	<div class="tooltip-content">
-		<div class="text-xs">
+		<div class="text-base md:text-xs">
 			{enabled ? 'Выключить звуки' : 'Включить звуки'}
 		</div>
 	</div>
