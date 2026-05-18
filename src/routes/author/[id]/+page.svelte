@@ -1,7 +1,7 @@
 <script>
 	import config from '/src/config';
-	import ArchiveSection from '$lib/ArchiveSection.svelte';
-	import SEO from '$lib/SEO.svelte';
+	import ArchiveSection from '$lib/components/ArchiveSection.svelte';
+	import SEO from '$lib/components/SEO.svelte';
 
 	let { data } = $props();
 </script>

@@ -2,7 +2,7 @@
 	import { afterNavigate } from '$app/navigation';
 	import { onMount } from 'svelte';
 
-	import { isPostPath, playClick, playOpen } from '$lib/sound';
+	import { isPostPath, playClick, playOpen } from '$lib/utils/sound';
 
 	let { postIds } = $props();
 

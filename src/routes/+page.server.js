@@ -1,4 +1,4 @@
-import { loadPage } from '$lib/content';
+import { loadPage } from '$lib/utils/content';
 
 export async function load({ parent }) {
 	const data = await parent();

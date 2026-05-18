@@ -1,8 +1,8 @@
 <script>
 	import { page } from '$app/state';
-	import Action from '$lib/Action.svelte';
-	import Button from '$lib/Button.svelte';
-	import Header from '$lib/Header.svelte';
+	import Action from '$lib/components/Action.svelte';
+	import Button from '$lib/components/Button.svelte';
+	import Header from '$lib/components/Header.svelte';
 </script>
 
 <svelte:head>

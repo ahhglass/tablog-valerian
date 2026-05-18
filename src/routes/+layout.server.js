@@ -1,4 +1,4 @@
-import { loadPages, loadPosts } from '$lib/content';
+import { loadPages, loadPosts } from '$lib/utils/content';
 
 export async function load({ url }) {
 	return {

@@ -2,9 +2,9 @@
 	import { format } from 'date-fns';
 
 	import config from '/src/config';
-	import { formatCount } from '$lib/format';
-	import Copy from '$lib/Copy.svelte';
-	import Header from '$lib/Header.svelte';
+	import { formatCount } from '$lib/utils/format';
+	import Copy from '$lib/components/Copy.svelte';
+	import Header from '$lib/components/Header.svelte';
 	import CalendarIcon from '$lib/icons/CalendarIcon.svelte';
 	import PenToolIcon from '$lib/icons/PenToolIcon.svelte';
 	import PinIcon from '$lib/icons/PinIcon.svelte';

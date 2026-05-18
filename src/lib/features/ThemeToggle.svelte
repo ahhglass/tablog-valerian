@@ -2,7 +2,7 @@
 	import Moon from '$lib/icons/Moon.svelte';
 	import Sun from '$lib/icons/Sun.svelte';
 	import { tooltipDismiss } from '$lib/actions/tooltipDismiss';
-	import { isDarkMode, setTheme } from '$lib/theme';
+	import { isDarkMode, setTheme } from '$lib/utils/theme';
 	import { onMount } from 'svelte';
 
 	let dark = $state(false);

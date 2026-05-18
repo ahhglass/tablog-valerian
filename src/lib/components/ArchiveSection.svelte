@@ -3,9 +3,9 @@
 
 	import config from '/src/config';
 	import { page } from '$app/state';
-	import Action from '$lib/Action.svelte';
-	import Button from '$lib/Button.svelte';
-	import Header from '$lib/Header.svelte';
+	import Action from '$lib/components/Action.svelte';
+	import Button from '$lib/components/Button.svelte';
+	import Header from '$lib/components/Header.svelte';
 	import Lock from '$lib/icons/Lock.svelte';
 	import PinIcon from '$lib/icons/PinIcon.svelte';
 	import ArrowRightIcon from '$lib/icons/ArrowRight.svelte';

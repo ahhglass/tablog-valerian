@@ -1,6 +1,6 @@
 import { error } from '@sveltejs/kit';
 
-import { isClosedPage, loadPage } from '$lib/content';
+import { isClosedPage, loadPage } from '$lib/utils/content';
 
 export async function load({ params }) {
 	if (isClosedPage(params.slug)) {

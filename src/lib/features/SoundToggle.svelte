@@ -2,7 +2,7 @@
 	import VolumeOff from '$lib/icons/VolumeOff.svelte';
 	import VolumeOn from '$lib/icons/VolumeOn.svelte';
 	import { tooltipDismiss } from '$lib/actions/tooltipDismiss';
-	import { isSoundEnabled, playClick, setSoundEnabled } from '$lib/sound';
+	import { isSoundEnabled, playClick, setSoundEnabled } from '$lib/utils/sound';
 	import { onMount } from 'svelte';
 
 	let enabled = $state(false);

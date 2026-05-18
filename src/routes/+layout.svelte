@@ -2,10 +2,10 @@
 	import '/src/css/index.css';
 
 	import config from '/src/config';
-	import Logo from '$lib/Logo.svelte';
-	import SoundManager from '$lib/SoundManager.svelte';
-	import SoundToggle from '$lib/SoundToggle.svelte';
-	import ThemeToggle from '$lib/ThemeToggle.svelte';
+	import Logo from '$lib/components/Logo.svelte';
+	import SoundManager from '$lib/features/SoundManager.svelte';
+	import SoundToggle from '$lib/features/SoundToggle.svelte';
+	import ThemeToggle from '$lib/features/ThemeToggle.svelte';
 	import ArrowUpRightIcon from '$lib/icons/ArrowUpRight.svelte';
 
 	import PageLoader from './PageLoader.svelte';

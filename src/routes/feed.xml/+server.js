@@ -1,5 +1,5 @@
 import config from '/src/config';
-import { loadPosts } from '$lib/content';
+import { loadPosts } from '$lib/utils/content';
 
 export function GET({ url }) {
 	const posts = loadPosts({

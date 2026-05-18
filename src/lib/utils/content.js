@@ -1,7 +1,7 @@
 import { render } from 'svelte/server';
 
 import config from '/src/config';
-import slugify from '$lib/slugify';
+import slugify from '$lib/utils/slugify';
 
 const pages = Object.entries(import.meta.glob('/content/**/*.md', { eager: true }))
 	.map(([path, Page]) => ({
