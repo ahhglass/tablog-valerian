@@ -41,7 +41,7 @@
 
 	<footer class="mt-8">
 		<nav class="py-4 text-xl md:p-4">
-			<ul class="flex flex-row flex-wrap gap-x-6 p-2">
+			<ul class="flex flex-row flex-wrap gap-x-2 p-2">
 				<li><a class="flex flex-row gap-0.5 p-2 underline" href="/feed.xml">Лента</a></li>
 				{#each data.pages as item (item.id)}
 					<li><a class="block p-2 underline" href="/{item.id}">{item.title}</a></li>
@@ -66,7 +66,9 @@
 			<p>
 				&copy; {new Date().getFullYear()}
 				{config.siteTitle} <span class="mx-2 inline-block text-current/20">|</span> На базе
-				<a href={config.themeUrl} target="_blank" rel="external noreferrer">темы {config.themeName}</a>
+				<a href={config.themeUrl} target="_blank" rel="external noreferrer"
+					>темы {config.themeName}</a
+				>
 				для SvelteKit ·
 				<a href={config.authorUrl}>{config.authorName}</a>
 			</p>

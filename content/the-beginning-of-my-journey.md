@@ -1,6 +1,6 @@
 ---
 title: Начало моего пути
-author: Valerain
+author: Valerian
 tags: Жизнь, HTML, CSS, Гик-культура
 date: 2019-09-04
 description: Рассказываю о начале моего пути

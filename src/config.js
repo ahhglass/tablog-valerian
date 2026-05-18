@@ -6,16 +6,14 @@ const config = {
 	archiveTitle: 'Архив',
 	dateFormat: 'dd MMM yyyy',
 	dateLocale: ru,
-	/** Символов в минуту для оценки времени чтения (русский текст). */
 	readingCharsPerMinute: 1200,
 
-	authorName: 'Valerain',
-	authorUrl: '/author/valerain',
+	authorName: 'Valerian',
+	authorUrl: '/author/valerian',
 
 	themeName: 'Tablog',
-	themeUrl: 'https://github.com/lemmon/tablog-svelte',
+	themeUrl: 'https://github.com/ahhglass/tablog-valerian',
 
-	/** Внешние ссылки в подвале (оставьте пустым, чтобы скрыть пункт). */
 	social: [],
 };
 
