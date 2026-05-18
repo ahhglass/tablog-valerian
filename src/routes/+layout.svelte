@@ -3,12 +3,16 @@
 
 	import config from '/src/config';
 	import Logo from '$lib/Logo.svelte';
+	import SoundManager from '$lib/SoundManager.svelte';
+	import SoundToggle from '$lib/SoundToggle.svelte';
 	import ThemeToggle from '$lib/ThemeToggle.svelte';
 	import ArrowUpRightIcon from '$lib/icons/ArrowUpRight.svelte';
 
 	import PageLoader from './PageLoader.svelte';
 
 	let { data, children } = $props();
+
+	const postIds = $derived(data.posts.map((post) => post.id));
 </script>
 
 <svelte:head>
@@ -17,6 +21,7 @@
 </svelte:head>
 
 <PageLoader />
+<SoundManager {postIds} />
 
 <div class="max-w-container mx-auto flex min-h-dvh flex-col">
 	<header class="flex flex-row items-center justify-between px-4 py-8 md:p-8">
@@ -72,6 +77,8 @@
 				>
 				для SvelteKit в редакции
 				<a href={config.authorUrl}>{config.authorName}</a>
+				<span class="mx-2 inline-block text-current/20">|</span>
+				<SoundToggle />
 			</p>
 		</div>
 	</footer>
