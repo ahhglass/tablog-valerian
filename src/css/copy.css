@@ -44,8 +44,62 @@
 		@apply text-3xl tracking-tight text-balance;
 	}
 
+	.copy > h4 {
+		margin-top: 3rem;
+		margin-bottom: 1.5rem;
+		@apply text-xl font-semibold tracking-tight text-balance;
+	}
+
+	.copy > h5 {
+		margin-top: 2.5rem;
+		margin-bottom: 1rem;
+		@apply text-base font-semibold tracking-tight text-balance;
+	}
+
+	.copy > h6 {
+		margin-top: 2rem;
+		margin-bottom: 1rem;
+		@apply text-xs font-semibold tracking-tight text-balance;
+	}
+
+	.copy :is(h1, h2, h3, h4, h5, h6) {
+		scroll-margin-top: 2rem;
+	}
+
+	.copy .heading-anchor {
+		margin-left: 0.35ch;
+		text-decoration: none;
+		color: color-mix(in srgb, var(--color-text), transparent 45%);
+		font-weight: normal;
+		opacity: 0;
+		transition: opacity 200ms ease, color 200ms ease;
+	}
+
+	.copy :is(h1, h2, h3, h4, h5, h6):hover .heading-anchor,
+	.copy :is(h1, h2, h3, h4, h5, h6):focus-within .heading-anchor,
+	.copy .heading-anchor:focus-visible {
+		opacity: 1;
+	}
+
+	.copy > hr {
+		margin-top: calc(var(--copy-space) * 1.5);
+		margin-bottom: calc(var(--copy-space) * 1.5);
+		border: none;
+		border-top: 1px solid color-mix(in srgb, var(--color-text), transparent 82%);
+	}
+
 	.copy a:not(.button) {
 		text-decoration-line: underline;
+	}
+
+	.copy a:not(.button)[href^='http']::after {
+		content: '\2197';
+		display: inline-block;
+		margin-left: 0.2em;
+		font-size: 0.85em;
+		line-height: 1;
+		text-decoration: none;
+		color: color-mix(in srgb, var(--color-text), transparent 40%);
 	}
 
 	.copy em {
@@ -98,8 +152,97 @@
 	}
 
 	.copy blockquote {
-		border-left: 2px solid;
+		border-left: 2px solid color-mix(in srgb, var(--color-text), transparent 15%);
 		padding-left: calc(3ch - 2px);
+		color: color-mix(in srgb, var(--color-text), transparent 12%);
+	}
+
+	.copy blockquote > :first-child {
+		margin-top: 0;
+	}
+
+	.copy blockquote > :last-child {
+		margin-bottom: 0;
+	}
+
+	.copy table {
+		width: 100%;
+		border-collapse: collapse;
+		font-variant-numeric: tabular-nums;
+	}
+
+	.copy :is(th, td) {
+		padding: 0.65rem 1ch;
+		text-align: left;
+		vertical-align: top;
+		border-bottom: 1px solid color-mix(in srgb, var(--color-text), transparent 88%);
+	}
+
+	.copy thead :is(th, td) {
+		font-weight: bold;
+		border-bottom-width: 2px;
+		border-bottom-color: color-mix(in srgb, var(--color-text), transparent 70%);
+	}
+
+	.copy ul.contains-task-list {
+		list-style: none;
+		padding-left: 0;
+	}
+
+	.copy li.task-list-item {
+		padding-left: 0;
+		display: flex;
+		flex-direction: row;
+		align-items: flex-start;
+		gap: 1ch;
+	}
+
+	.copy li.task-list-item::before {
+		content: none;
+		display: none;
+	}
+
+	.copy li.task-list-item > input[type='checkbox'] {
+		margin-top: 0.35em;
+		width: 1.1em;
+		height: 1.1em;
+		flex-shrink: 0;
+		accent-color: var(--color-text);
+		cursor: default;
+	}
+
+	.copy .callout {
+		border-left: 2px solid var(--color-text);
+		padding: 1rem 1.25rem;
+		padding-left: calc(3ch - 2px);
+		background-color: var(--color-shade);
+		border-radius: var(--radius-md);
+	}
+
+	.copy .callout__label {
+		margin: 0 0 0.5rem;
+		font-size: var(--text-metadata);
+		line-height: var(--text-metadata--line-height);
+		font-weight: bold;
+		letter-spacing: 0.02em;
+		text-transform: uppercase;
+	}
+
+	.copy .callout__body > :first-child {
+		margin-top: 0;
+	}
+
+	.copy .callout__body > :last-child {
+		margin-bottom: 0;
+	}
+
+	.copy .callout--tip {
+		border-left-color: color-mix(in srgb, var(--color-text), transparent 35%);
+	}
+
+	.copy .callout--important {
+		border-left-width: 3px;
+		padding-left: calc(3ch - 3px);
 	}
 
 	.copy :not(pre) > code {

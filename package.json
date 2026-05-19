@@ -12,6 +12,7 @@
 		"lint": "prettier --check . && eslint ."
 	},
 	"dependencies": {
+		"@upstash/redis": "^1.38.0",
 		"slugify": "~1.6.0"
 	},
 	"devDependencies": {
@@ -34,6 +35,9 @@
 		"prettier": "~3.6",
 		"prettier-plugin-svelte": "~3",
 		"prettier-plugin-tailwindcss": "~0.6",
+		"rehype-autolink-headings": "^7.1.0",
+		"rehype-slug": "^6.0.0",
+		"remark-gfm": "^4.0.1",
 		"svelte": "~5.36",
 		"tailwindcss": "~4.1",
 		"vite": "~7.0"
