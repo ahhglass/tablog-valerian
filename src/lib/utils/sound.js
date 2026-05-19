@@ -5,6 +5,7 @@ const storageKey = 'sound';
 const paths = {
 	click: '/sfx/ui-click.mp3',
 	open: '/sfx/ui-open.mp3',
+	popup: '/sfx/ui-popup.mp3',
 };
 
 /** @type {Map<string, HTMLAudioElement>} */
@@ -51,6 +52,10 @@ export function playClick() {
 
 export function playOpen() {
 	play(paths.open);
+}
+
+export function playPopup() {
+	play(paths.popup);
 }
 
 /** @param {string} pathname @param {Set<string>} postIds */

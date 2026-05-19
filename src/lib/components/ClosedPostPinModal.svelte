@@ -2,6 +2,7 @@
 	import { goto } from '$app/navigation';
 	import Button from '$lib/components/Button.svelte';
 	import PinCodeInput from '$lib/components/PinCodeInput.svelte';
+	import { playPopup } from '$lib/utils/sound';
 	import { unlockClosedPost } from '$lib/utils/unlockClosed';
 
 	let displayTitle = $state('');
@@ -23,6 +24,7 @@
 		pin = '';
 		error = '';
 		dialog?.showModal();
+		playPopup();
 		queueMicrotask(() => pinInput?.focusFirst());
 	}
 
