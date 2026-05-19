@@ -1,6 +1,7 @@
 import { render } from 'svelte/server';
 
 import config from '/src/config';
+import { isClosedSlug } from '$lib/server/closedSlugs.js';
 import slugify from '$lib/utils/slugify';
 
 const pages = Object.entries(import.meta.glob('/content/**/*.md', { eager: true }))
@@ -23,10 +24,7 @@ export function isClosed(meta) {
 }
 
 /** @param {string} id */
-export function isClosedPage(id) {
-	const page = pages.find((x) => x.id === id);
-	return Boolean(page && isClosed(page.meta));
-}
+export const isClosedPage = isClosedSlug;
 
 export function loadPages() {
 	return pages
@@ -72,9 +70,9 @@ export function loadPosts(props) {
 		});
 }
 
-export function loadPage(id) {
+export function loadPage(id, { allowClosed = false } = {}) {
 	const page = pages.find((x) => x.id === id);
-	if (!page || isClosed(page.meta)) return;
+	if (!page || (isClosed(page.meta) && !allowClosed)) return;
 	const content = renderContentBody(page.Page);
 	const stats = getReadingStats(content);
 

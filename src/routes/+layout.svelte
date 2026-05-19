@@ -8,9 +8,20 @@
 	import ThemeToggle from '$lib/features/ThemeToggle.svelte';
 	import ArrowUpRightIcon from '$lib/icons/ArrowUpRight.svelte';
 
+	import ClosedPostPinModal from '$lib/components/ClosedPostPinModal.svelte';
+	import { setClosedPinModal } from '$lib/stores/closedPin.svelte.js';
+
 	import PageLoader from './PageLoader.svelte';
 
 	let { data, children } = $props();
+
+	/** @type {ClosedPostPinModal | undefined} */
+	let pinModal = $state();
+
+	$effect(() => {
+		setClosedPinModal(pinModal ?? null);
+		return () => setClosedPinModal(null);
+	});
 
 	const postIds = $derived(data.posts.map((post) => post.id));
 </script>
@@ -85,3 +96,5 @@
 		</div>
 	</footer>
 </div>
+
+<ClosedPostPinModal bind:this={pinModal} />

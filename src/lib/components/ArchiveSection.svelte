@@ -9,6 +9,8 @@
 	import Lock from '$lib/icons/Lock.svelte';
 	import PinIcon from '$lib/icons/PinIcon.svelte';
 	import ArrowRightIcon from '$lib/icons/ArrowRight.svelte';
+	import { tripleTap } from '$lib/actions/tripleTap';
+	import { openClosedPin } from '$lib/stores/closedPin.svelte.js';
 
 	let { limit = 5, posts = page.data.posts.slice(0, limit || Infinity), header } = $props();
 </script>
@@ -25,6 +27,7 @@
 						<span
 							class="archive-link archive-link--closed block py-1 sm:flex sm:flex-row sm:items-start sm:gap-4"
 							title="Запись закрыта"
+							use:tripleTap={() => openClosedPin({ id: item.id, title: item.title })}
 						>
 							<span class="block">
 								{#if item.pinned}<span class="float-left mr-1 flex"><PinIcon /></span>{/if}

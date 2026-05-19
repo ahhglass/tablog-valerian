@@ -7,6 +7,7 @@
 		align-items: center;
 		justify-content: center;
 		gap: 0.375rem;
+		cursor: pointer;
 		padding: calc(var(--vpadding) - var(--border-width)) calc(var(--hpadding) - var(--border-width));
 		border: var(--border-width) solid;
 		border-radius: 9999px;
@@ -30,6 +31,22 @@
 	}
 
 	.button--primary {
+		color: var(--color-background);
+		background-color: var(--color-text);
+		border-color: transparent;
+	}
+
+	.button:disabled,
+	.button:disabled:hover {
+		opacity: 0.45;
+		cursor: not-allowed;
+		color: var(--color-text);
+		background-color: transparent;
+		border-color: currentColor;
+	}
+
+	.button--primary:disabled,
+	.button--primary:disabled:hover {
 		color: var(--color-background);
 		background-color: var(--color-text);
 		border-color: transparent;
