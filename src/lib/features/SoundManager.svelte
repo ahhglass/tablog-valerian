@@ -2,6 +2,7 @@
 	import { afterNavigate } from '$app/navigation';
 	import { onMount } from 'svelte';
 
+	import { playTapHaptic } from '$lib/utils/haptic';
 	import { isPostPath, playClick, playOpen } from '$lib/utils/sound';
 
 	let { postIds } = $props();
@@ -25,6 +26,7 @@
 			)
 				return;
 			playClick();
+			playTapHaptic();
 		};
 
 		document.addEventListener('pointerup', onPointerUp);

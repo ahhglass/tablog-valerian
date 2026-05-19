@@ -2,6 +2,7 @@
 	import VolumeOff from '$lib/icons/VolumeOff.svelte';
 	import VolumeOn from '$lib/icons/VolumeOn.svelte';
 	import { tooltipDismiss } from '$lib/actions/tooltipDismiss';
+	import { playTapHaptic } from '$lib/utils/haptic';
 	import { isSoundEnabled, playClick, setSoundEnabled } from '$lib/utils/sound';
 	import { onMount } from 'svelte';
 
@@ -13,7 +14,10 @@
 
 	function onChange() {
 		setSoundEnabled(enabled);
-		if (enabled) playClick();
+		if (enabled) {
+			playClick();
+			playTapHaptic();
+		}
 	}
 </script>
 
