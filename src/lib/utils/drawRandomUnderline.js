@@ -1,3 +1,8 @@
+/**
+ * Волнистое подчёркивание ссылок при hover: случайный SVG + DrawSVG (GSAP).
+ * Разметка `[data-draw-line]` / `[data-draw-line-box]`; только `(hover: hover)`.
+ */
+
 import { loadGsap } from '$lib/utils/loadGsap.js';
 import { playDraw } from '$lib/utils/sound.js';
 
@@ -19,7 +24,6 @@ const svgVariants = [
 
 let nextIndex = null;
 
-/** @param {SVGElement} svgEl */
 function decorateSVG(svgEl) {
 	svgEl.setAttribute('class', 'text-draw__box-svg');
 	svgEl.setAttribute('preserveAspectRatio', 'none');
@@ -29,16 +33,11 @@ function decorateSVG(svgEl) {
 	});
 }
 
-/** @param {Node | null} node */
 function isInside(node, parent) {
 	return node instanceof Node && parent.contains(node);
 }
 
-/**
- * @param {ParentNode} root
- * @param {typeof gsap} gsap
- * @returns {() => void}
- */
+/** @param {ParentNode} root @param {typeof gsap} gsap */
 function bindDrawLines(root, gsap) {
 	/** @type {(() => void)[]} */
 	const cleanups = [];
@@ -106,13 +105,11 @@ function bindDrawLines(root, gsap) {
 			}
 		};
 
-		/** @param {MouseEvent} event */
 		const onOver = (event) => {
 			if (isInside(event.relatedTarget, container)) return;
 			onEnter();
 		};
 
-		/** @param {MouseEvent} event */
 		const onOut = (event) => {
 			if (isInside(event.relatedTarget, container)) return;
 			onLeave();
@@ -135,11 +132,7 @@ function bindDrawLines(root, gsap) {
 	};
 }
 
-/**
- * Random wavy underline on hover (Osmo + DrawSVG).
- * @param {ParentNode} root
- * @returns {Promise<() => void>}
- */
+/** @param {ParentNode} root @returns {Promise<() => void>} */
 export async function initDrawRandomUnderline(root) {
 	if (typeof window === 'undefined') return () => {};
 	if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return () => {};

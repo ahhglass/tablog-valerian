@@ -1,3 +1,7 @@
+/**
+ * Слаги для URL авторов и тегов — обёртка над пакетом `slugify` (нижний регистр).
+ */
+
 import slugify from 'slugify';
 
 export default function (x) {

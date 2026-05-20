@@ -1,3 +1,8 @@
+/**
+ * Ленивая загрузка GSAP из `/vendor`: core и плагин DrawSVG.
+ * Один раз на вкладку; повторные вызовы возвращают тот же Promise.
+ */
+
 /** @type {Promise<typeof gsap | null> | null} */
 let corePromise = null;
 
@@ -17,7 +22,7 @@ export function loadGsapCore() {
 	return corePromise;
 }
 
-/** @returns {Promise<typeof gsap | null>} */
+/** @returns {Promise<typeof gsap | null>} — core + DrawSVGPlugin */
 export function loadGsap() {
 	if (typeof window === 'undefined') return Promise.resolve(null);
 

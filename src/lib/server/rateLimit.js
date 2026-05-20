@@ -1,3 +1,7 @@
+/**
+ * In-memory rate limit для API (неверный PIN закрытых постов): 5 неудач за 15 минут на IP.
+ */
+
 const WINDOW_MS = 15 * 60 * 1000;
 const MAX = 5;
 
@@ -5,7 +9,7 @@ const MAX = 5;
 const hits = new Map();
 
 /** @param {string} ip @param {string} [key] */
-const entry = (ip, key = 'closed-unlock') => {
+function entry(ip, key = 'closed-unlock') {
 	const id = `${key}:${ip}`;
 	const now = Date.now();
 	let e = hits.get(id);
@@ -14,17 +18,14 @@ const entry = (ip, key = 'closed-unlock') => {
 		hits.set(id, e);
 	}
 	return e;
-};
+}
 
-/** Блок только после неудачных попыток */
-export const isRateLimited = (ip, key = 'closed-unlock') => {
-	const e = entry(ip, key);
-	return e.count >= MAX;
-};
+export function isRateLimited(ip, key = 'closed-unlock') {
+	return entry(ip, key).count >= MAX;
+}
 
-/** Считаем только неверный PIN */
-export const recordFailedAttempt = (ip, key = 'closed-unlock') => {
+export function recordFailedAttempt(ip, key = 'closed-unlock') {
 	const e = entry(ip, key);
 	e.count += 1;
 	hits.set(`${key}:${ip}`, e);
-};
+}

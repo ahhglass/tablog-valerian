@@ -1,5 +1,9 @@
+/**
+ * Множество slug закрытых постов (`closedness` в frontmatter) — собирается при сборке из `/content`.
+ */
+
 /** @param {Record<string, unknown> | undefined} meta */
-const isClosed = (meta) => {
+function isClosed(meta) {
 	const value = meta?.closedness;
 	if (value === true) return true;
 	if (typeof value === 'string') {
@@ -7,7 +11,7 @@ const isClosed = (meta) => {
 		return n === 'yes' || n === 'true';
 	}
 	return false;
-};
+}
 
 const closed = new Set(
 	Object.entries(import.meta.glob('/content/**/*.md', { eager: true }))
@@ -15,4 +19,7 @@ const closed = new Set(
 		.map(([path]) => path.match(/content\/(.*)\.\w+$/)[1]),
 );
 
-export const isClosedSlug = (id) => closed.has(id);
+/** @param {string} id */
+export function isClosedSlug(id) {
+	return closed.has(id);
+}

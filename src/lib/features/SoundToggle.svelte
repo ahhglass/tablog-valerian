@@ -1,4 +1,8 @@
 <script>
+	/**
+	 * Переключатель UI-звуков в шапке: localStorage, подсказка с <kbd>S</kbd>, клик при включении.
+	 * Слушает `soundChangeEvent` после горячих клавиш.
+	 */
 	import VolumeOff from '$lib/icons/VolumeOff.svelte';
 	import VolumeOn from '$lib/icons/VolumeOn.svelte';
 	import { tooltipDismiss } from '$lib/actions/tooltipDismiss';

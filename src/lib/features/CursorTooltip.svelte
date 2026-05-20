@@ -1,4 +1,8 @@
 <script>
+	/**
+	 * Глобальная плашка `data-cursor` в layout: init в onMount, сброс при навигации.
+	 * На touch не инициализируется (см. `canUseCursorTooltip`).
+	 */
 	import { afterNavigate, beforeNavigate } from '$app/navigation';
 	import { canUseCursorTooltip, initCursorTooltip } from '$lib/utils/cursorTooltip.js';
 	import { onMount } from 'svelte';

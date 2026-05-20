@@ -1,4 +1,8 @@
 <script>
+	/**
+	 * Звуки навигации и кликов: `playOpen` при переходе на пост, `playClick` на кнопках/ссылках шапки и футера.
+	 * Принимает `postIds` из layout data.
+	 */
 	import { afterNavigate } from '$app/navigation';
 	import { onMount } from 'svelte';
 

@@ -1,3 +1,8 @@
+/**
+ * Загрузка Markdown из `/content`: посты, страницы, теги, closedness, описание и время чтения.
+ * Используется в `+layout.server.js`, маршрутах постов и RSS.
+ */
+
 import { render } from 'svelte/server';
 
 import config from '/src/config';

@@ -1,11 +1,13 @@
+/**
+ * Короткая вибрация на touch-устройствах при включённом звуке (кнопки, горячие клавиши).
+ */
+
 import { browser } from '$app/environment';
 
 import { isSoundEnabled } from '$lib/utils/sound';
 
-/** Short tap for UI buttons (ms). */
 const TAP_MS = 10;
 
-/** @returns {boolean} */
 function canVibrate() {
 	if (!browser || !isSoundEnabled()) return false;
 	if (typeof navigator === 'undefined' || typeof navigator.vibrate !== 'function') return false;
@@ -14,7 +16,6 @@ function canVibrate() {
 	return true;
 }
 
-/** Light vibration on touch devices; follows the sound toggle. */
 export function playTapHaptic() {
 	if (!canVibrate()) return;
 	try {

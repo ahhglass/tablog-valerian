@@ -1,3 +1,8 @@
+/**
+ * Глобальные горячие клавиши: тема (D), звук (S), закрытие PIN-модалки (Esc).
+ * Игнорирует ввод в полях; диспатчит события для обновления UI-тогглов.
+ */
+
 import { closeClosedPin, isClosedPinOpen } from '$lib/stores/closedPin.svelte.js';
 import { playTapHaptic } from '$lib/utils/haptic';
 import { playClick, toggleSound } from '$lib/utils/sound';
@@ -74,7 +79,7 @@ export function handleKeyboardShortcut(event) {
 	}
 }
 
-/** @param {(event: KeyboardEvent) => void} handler */
+/** @param {(event: KeyboardEvent) => void} [handler] */
 export function registerKeyboardShortcuts(handler = handleKeyboardShortcut) {
 	const onKeydown = (event) => handler(event);
 	window.addEventListener('keydown', onKeydown);

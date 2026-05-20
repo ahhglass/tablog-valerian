@@ -1,18 +1,23 @@
+/**
+ * Плавающий тултип для элементов с `data-cursor` (описания постов в архиве).
+ * Показ после удержания курсора; только мышь/trackpad (не touch). GSAP + делегирование на document.
+ */
+
 import { loadGsapCore } from '$lib/utils/loadGsap.js';
 
 const xOffset = 6;
 const yOffset = 20;
 const yOffsetBottom = -60;
-const HOLD_MS = 1000; /** Show tooltip only after hovering a post link this long (ms). */
+/** Задержка перед показом при наведении на ссылку (мс). */
+const HOLD_MS = 1000;
 
 const finePointerMq = '(hover: hover) and (pointer: fine)';
 
-/** Touch-first / coarse pointers (same idea as tooltipDismiss). */
 function isTouchLike() {
 	return window.matchMedia('(hover: none), (pointer: coarse)').matches;
 }
 
-/** Desktop mouse/trackpad only — not phones/tablets in touch mode. */
+/** Можно ли включать тултип в текущем окружении (SSR / touch / reduced-motion). */
 export function canUseCursorTooltip() {
 	if (typeof window === 'undefined') return false;
 	if (isTouchLike()) return false;
@@ -22,8 +27,7 @@ export function canUseCursorTooltip() {
 }
 
 /**
- * Floating tooltip that follows the pointer (Osmo data-cursor pattern).
- * @param {HTMLElement} tooltip
+ * @param {HTMLElement} tooltip — корневой `.cursor-tooltip`
  * @returns {Promise<{ destroy: () => void; hide: () => void } | undefined>}
  */
 export async function initCursorTooltip(tooltip) {
@@ -52,7 +56,6 @@ export async function initCursorTooltip(tooltip) {
 		}
 	}
 
-	/** @param {HTMLElement} target */
 	function scheduleReveal(target) {
 		clearRevealTimer();
 		pendingTarget = target;
@@ -79,12 +82,10 @@ export async function initCursorTooltip(tooltip) {
 		gsap.to(tooltip, { opacity: 0, duration: 0.12, ease: 'power2.in', overwrite: 'auto' });
 	}
 
-	/** @param {HTMLElement} target @returns {string} */
 	function cursorText(target) {
 		return target.getAttribute('data-cursor')?.trim() ?? '';
 	}
 
-	/** @param {HTMLElement} target */
 	function setText(target) {
 		const next = cursorText(target);
 		if (!next || next === lastText) return;
@@ -92,7 +93,6 @@ export async function initCursorTooltip(tooltip) {
 		lastText = next;
 	}
 
-	/** @param {MouseEvent} event */
 	function onMove(event) {
 		const anchor = currentTarget ?? pendingTarget;
 		if (!anchor) return;
@@ -134,7 +134,6 @@ export async function initCursorTooltip(tooltip) {
 		yTo(cursorY - scrollY);
 	}
 
-	/** @param {HTMLElement} target */
 	function onEnter(target) {
 		const next = cursorText(target);
 		if (!next) {
@@ -158,14 +157,12 @@ export async function initCursorTooltip(tooltip) {
 		fadeOut();
 	}
 
-	/** @param {Event} event */
 	function cursorTargetFromEvent(event) {
 		if (!(event.target instanceof Element)) return null;
 		const el = event.target.closest('[data-cursor]');
 		return el instanceof HTMLElement ? el : null;
 	}
 
-	/** @param {PointerEvent} event */
 	function onPointerOver(event) {
 		if (event.pointerType !== 'mouse') return;
 		const target = cursorTargetFromEvent(event);
@@ -176,7 +173,6 @@ export async function initCursorTooltip(tooltip) {
 		scheduleReveal(target);
 	}
 
-	/** @param {PointerEvent} event */
 	function onPointerOut(event) {
 		if (event.pointerType !== 'mouse') return;
 		const target = cursorTargetFromEvent(event);
@@ -190,7 +186,6 @@ export async function initCursorTooltip(tooltip) {
 		if (currentTarget === target) hide();
 	}
 
-	/** @param {PointerEvent} event */
 	function onPointerDown(event) {
 		if (event.pointerType !== 'mouse') return;
 		if (cursorTargetFromEvent(event)) hide();
@@ -203,13 +198,13 @@ export async function initCursorTooltip(tooltip) {
 	const fineMq = window.matchMedia(finePointerMq);
 	const touchMq = window.matchMedia('(hover: none), (pointer: coarse)');
 
-	// Delegation: new [data-cursor] nodes after client navigation keep working
 	document.addEventListener('pointerover', onPointerOver);
 	document.addEventListener('pointerout', onPointerOut);
 	document.addEventListener('pointerdown', onPointerDown);
 	window.addEventListener('mousemove', onMove);
 	fineMq.addEventListener('change', onFinePointerChange);
 	touchMq.addEventListener('change', onFinePointerChange);
+
 	function onVisibilityChange() {
 		if (document.hidden) hide();
 	}

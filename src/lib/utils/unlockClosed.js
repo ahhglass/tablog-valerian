@@ -1,3 +1,7 @@
+/**
+ * Клиентский запрос разблокировки закрытого поста по PIN (`/api/closed/unlock`).
+ */
+
 /** @param {string} pin @param {string} slug */
 export async function unlockClosedPost(pin, slug) {
 	return fetch('/api/closed/unlock', {

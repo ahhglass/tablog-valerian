@@ -1,3 +1,7 @@
+/**
+ * Светлая/тёмная тема: `data-theme` на `<html>`, localStorage, учёт `prefers-color-scheme`.
+ */
+
 const storageKey = 'theme';
 
 /** @returns {'light' | 'dark' | null} */
@@ -30,7 +34,6 @@ export function systemPrefersDark() {
 	return window.matchMedia('(prefers-color-scheme: dark)').matches;
 }
 
-/** @returns {boolean} */
 export function isDarkMode() {
 	if (typeof document === 'undefined') return false;
 
@@ -41,7 +44,7 @@ export function isDarkMode() {
 	return systemPrefersDark();
 }
 
-/** @returns {boolean} whether dark mode is active after toggle */
+/** @returns {boolean} активна ли тёмная тема после переключения */
 export function toggleTheme() {
 	const next = isDarkMode() ? 'light' : 'dark';
 	setTheme(next);

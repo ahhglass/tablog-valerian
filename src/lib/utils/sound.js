@@ -1,3 +1,8 @@
+/**
+ * UI-звуки (клик, открытие, подчёркивание) с кэшем Audio и переключателем в localStorage.
+ * `isPostPath` — хелпер для SoundManager при навигации между постами.
+ */
+
 import { browser } from '$app/environment';
 
 const storageKey = 'sound';
@@ -23,7 +28,6 @@ const drawVolume = 0.3;
 /** @type {Map<string, HTMLAudioElement>} */
 const cache = new Map();
 
-/** @returns {boolean} */
 export function isSoundEnabled() {
 	if (!browser) return true;
 	try {
@@ -43,7 +47,7 @@ export function setSoundEnabled(enabled) {
 	}
 }
 
-/** @returns {boolean} whether sound is enabled after toggle */
+/** @returns {boolean} включён ли звук после переключения */
 export function toggleSound() {
 	const next = !isSoundEnabled();
 	setSoundEnabled(next);

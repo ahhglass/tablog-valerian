@@ -1,4 +1,8 @@
 <script>
+	/**
+	 * Переключатель светлой/тёмной темы в шапке: `data-theme`, подсказка с <kbd>D</kbd>.
+	 * Слушает `themeChangeEvent` после горячих клавиш.
+	 */
 	import Moon from '$lib/icons/Moon.svelte';
 	import Sun from '$lib/icons/Sun.svelte';
 	import { tooltipDismiss } from '$lib/actions/tooltipDismiss';

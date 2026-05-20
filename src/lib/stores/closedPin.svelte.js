@@ -1,3 +1,8 @@
+/**
+ * Состояние модалки PIN для закрытых постов: регистрация инстанса, open/close, флаг для Esc.
+ * Модалка монтируется в layout и вызывает `setClosedPinModal`.
+ */
+
 /** @type {import('$lib/components/ClosedPostPinModal.svelte').default | null} */
 let modal = null;
 
