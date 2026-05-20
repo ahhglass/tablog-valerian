@@ -4,6 +4,22 @@ const xOffset = 6;
 const yOffset = 20;
 const yOffsetBottom = -60;
 
+const finePointerMq = '(hover: hover) and (pointer: fine)';
+
+/** Touch-first / coarse pointers (same idea as tooltipDismiss). */
+function isTouchLike() {
+	return window.matchMedia('(hover: none), (pointer: coarse)').matches;
+}
+
+/** Desktop mouse/trackpad only — not phones/tablets in touch mode. */
+export function canUseCursorTooltip() {
+	if (typeof window === 'undefined') return false;
+	if (isTouchLike()) return false;
+	if (!window.matchMedia(finePointerMq).matches) return false;
+	if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return false;
+	return true;
+}
+
 /**
  * Floating tooltip that follows the pointer (Osmo data-cursor pattern).
  * @param {HTMLElement} tooltip
@@ -11,8 +27,7 @@ const yOffsetBottom = -60;
  */
 export async function initCursorTooltip(tooltip) {
 	if (typeof window === 'undefined') return;
-	if (!window.matchMedia('(hover: hover)').matches) return;
-	if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+	if (!canUseCursorTooltip()) return;
 
 	const textEl = tooltip.querySelector('p');
 	if (!(textEl instanceof HTMLParagraphElement)) return;
@@ -121,8 +136,9 @@ export async function initCursorTooltip(tooltip) {
 		return el instanceof HTMLElement ? el : null;
 	}
 
-	/** @param {MouseEvent} event */
+	/** @param {PointerEvent} event */
 	function onPointerOver(event) {
+		if (event.pointerType !== 'mouse') return;
 		const target = cursorTargetFromEvent(event);
 		if (!target) return;
 		if (event.relatedTarget instanceof Node && target.contains(event.relatedTarget)) return;
@@ -130,8 +146,9 @@ export async function initCursorTooltip(tooltip) {
 		onEnter(target);
 	}
 
-	/** @param {MouseEvent} event */
+	/** @param {PointerEvent} event */
 	function onPointerOut(event) {
+		if (event.pointerType !== 'mouse') return;
 		const target = cursorTargetFromEvent(event);
 		if (!target || currentTarget !== target) return;
 		if (event.relatedTarget instanceof Node && target.contains(event.relatedTarget)) return;
@@ -140,14 +157,24 @@ export async function initCursorTooltip(tooltip) {
 
 	/** @param {PointerEvent} event */
 	function onPointerDown(event) {
+		if (event.pointerType !== 'mouse') return;
 		if (cursorTargetFromEvent(event)) hide();
 	}
 
+	function onFinePointerChange() {
+		if (!canUseCursorTooltip()) hide();
+	}
+
+	const fineMq = window.matchMedia(finePointerMq);
+	const touchMq = window.matchMedia('(hover: none), (pointer: coarse)');
+
 	// Delegation: new [data-cursor] nodes after client navigation keep working
-	document.addEventListener('mouseover', onPointerOver);
-	document.addEventListener('mouseout', onPointerOut);
+	document.addEventListener('pointerover', onPointerOver);
+	document.addEventListener('pointerout', onPointerOut);
 	document.addEventListener('pointerdown', onPointerDown);
 	window.addEventListener('mousemove', onMove);
+	fineMq.addEventListener('change', onFinePointerChange);
+	touchMq.addEventListener('change', onFinePointerChange);
 	function onVisibilityChange() {
 		if (document.hidden) hide();
 	}
@@ -156,10 +183,12 @@ export async function initCursorTooltip(tooltip) {
 	window.addEventListener('pagehide', hide);
 
 	function destroy() {
-		document.removeEventListener('mouseover', onPointerOver);
-		document.removeEventListener('mouseout', onPointerOut);
+		document.removeEventListener('pointerover', onPointerOver);
+		document.removeEventListener('pointerout', onPointerOut);
 		document.removeEventListener('pointerdown', onPointerDown);
 		window.removeEventListener('mousemove', onMove);
+		fineMq.removeEventListener('change', onFinePointerChange);
+		touchMq.removeEventListener('change', onFinePointerChange);
 		document.removeEventListener('visibilitychange', onVisibilityChange);
 		window.removeEventListener('pagehide', hide);
 		hide();

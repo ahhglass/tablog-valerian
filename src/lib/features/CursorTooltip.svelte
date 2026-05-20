@@ -1,6 +1,6 @@
 <script>
 	import { afterNavigate, beforeNavigate } from '$app/navigation';
-	import { initCursorTooltip } from '$lib/utils/cursorTooltip.js';
+	import { canUseCursorTooltip, initCursorTooltip } from '$lib/utils/cursorTooltip.js';
 	import { onMount } from 'svelte';
 
 	let tooltip = $state(/** @type {HTMLElement | undefined} */ (undefined));
@@ -15,7 +15,7 @@
 	});
 
 	onMount(() => {
-		if (!tooltip) return;
+		if (!canUseCursorTooltip() || !tooltip) return;
 
 		let api = /** @type {{ destroy: () => void; hide: () => void } | undefined} */ (undefined);
 
