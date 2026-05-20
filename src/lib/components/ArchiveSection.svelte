@@ -46,6 +46,7 @@
 						<a
 							class="archive-link block py-1 sm:flex sm:flex-row sm:items-start sm:gap-4"
 							href="/{item.id}"
+							data-cursor={item.description || undefined}
 						>
 							<span class="block">
 								{#if item.pinned}<span class="float-left mr-1 flex"><PinIcon /></span>{/if}

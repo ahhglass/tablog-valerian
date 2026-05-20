@@ -3,6 +3,7 @@ title: Выковано рунами
 author: Gabriel Patrick Thompson
 tags: Разработка, Svelte, SvelteKit, Гик-культура
 date: 2024-11-08
+description: Аллегория обновления Tablog под Svelte 5 — руны как новая реактивность, лёгкий код и дух простоты в веб-ремесле.
 ---
 
 <script>

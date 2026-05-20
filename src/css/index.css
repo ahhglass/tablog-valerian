@@ -8,6 +8,8 @@
 @import './buttons';
 @import './copy';
 @import './pin-modal';
+@import './draw-underline';
+@import './cursor-tooltip';
 
 @theme {
 	--color-text: var(--color-neutral-950);

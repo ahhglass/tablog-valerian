@@ -1,0 +1,85 @@
+@layer components {
+	.text-draw {
+		display: inline-block;
+		position: relative;
+		text-decoration: none;
+		color: inherit;
+		vertical-align: baseline;
+	}
+
+	.text-draw--with-icon {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.25rem;
+	}
+
+	.text-draw__inner {
+		display: inline-block;
+	}
+
+	.text-draw__label {
+		display: block;
+	}
+
+	.text-draw__box {
+		display: block;
+		width: 100%;
+		height: 0.625em;
+		min-height: 0.25rem;
+		margin-top: 0.05em;
+		position: relative;
+		pointer-events: none;
+		color: currentColor;
+	}
+
+	.text-draw__box-svg {
+		width: 100%;
+		height: 100%;
+		position: absolute;
+		inset: 0;
+		overflow: visible;
+		display: block;
+	}
+
+	.text-draw__icon {
+		display: inline-flex;
+		flex-shrink: 0;
+		align-items: center;
+		align-self: center;
+		line-height: 0;
+	}
+
+	/* .copy a { underline } in copy.css — only wavy line on hover for these */
+	.copy a.text-draw {
+		text-decoration: none;
+		vertical-align: middle;
+	}
+
+	/* SVG slot out of flow — keeps links on the same line as surrounding text */
+	.copy .text-draw__label {
+		display: inline;
+	}
+
+	.copy .text-draw__box {
+		position: absolute;
+		top: 100%;
+		left: 0;
+		margin-top: 0.05em;
+	}
+
+	/* Touch / reduced motion: keep readable static underline */
+	@media (hover: none), (prefers-reduced-motion: reduce) {
+		.text-draw {
+			text-decoration: underline;
+			text-underline-offset: 2px;
+		}
+
+		.copy a.text-draw {
+			text-decoration: none;
+		}
+
+		.text-draw__box {
+			display: none;
+		}
+	}
+}

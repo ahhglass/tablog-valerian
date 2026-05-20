@@ -3,7 +3,7 @@ title: На встречу ветру — наш переход на Tailwind CS
 author: Gabriel Patrick Thompson
 tags: Разработка, Svelte, SvelteKit, Tailwind, CSS, Гик-культура
 date: 2024-08-21
-description: Рассказываем о переходе на Tailwind CSS, где простота и утилитарность объединяются, чтобы упростить дизайн и освежить код.
+description: Переход Tablog на Tailwind CSS — хокку и размышление о том, как утилитарные классы упростили вёрстку и освежили код темы.
 ---
 
 Ветер шепчет тихо,  

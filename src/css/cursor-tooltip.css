@@ -1,0 +1,26 @@
+/* Unlayered: follows pointer above page content */
+.cursor-tooltip {
+	z-index: 1000;
+	position: fixed;
+	inset: 0 auto auto 0;
+	max-width: min(22rem, calc(100vw - 2rem));
+	pointer-events: none;
+	opacity: 0;
+	padding: 0.35em 0.75em 0.45em;
+	border-radius: 0.35em;
+	background-color: var(--color-text);
+	color: var(--color-background);
+	font-size: var(--text-xs);
+	line-height: 1.45;
+	box-shadow: 0 8px 24px rgb(0 0 0 / 0.18);
+}
+
+.cursor-tooltip p {
+	margin: 0;
+}
+
+@media (hover: none), (prefers-reduced-motion: reduce) {
+	.cursor-tooltip {
+		display: none;
+	}
+}

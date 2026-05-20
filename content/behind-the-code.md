@@ -3,6 +3,7 @@ title: Тихая работа за кодом
 author: Gabriel Patrick Thompson
 tags: Разработка, Svelte, SvelteKit, Гик-культура
 date: 2025-07-24
+description: Раннее утро, eslint, prettier и обновление зависимостей — притча о том, как привести в порядок давно заброшенный блог на SvelteKit.
 ---
 
 <script>
