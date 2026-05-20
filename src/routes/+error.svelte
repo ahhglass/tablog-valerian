@@ -1,4 +1,5 @@
 <script>
+	import config from '/src/config';
 	import { page } from '$app/state';
 	import Action from '$lib/components/Action.svelte';
 	import Button from '$lib/components/Button.svelte';
@@ -12,10 +13,23 @@
 		if (!closedSlug) return;
 		openClosedPin({ id: closedSlug });
 	}
+
+	const errorDescription = $derived.by(() => {
+		if (page.status === 404) {
+			return `Запрошенная страница не найдена. ${config.siteTitle} — вернуться на главную.`;
+		}
+		if (page.status === 403) {
+			return 'Запись закрыта. При наличии PIN её можно открыть с этой страницы.';
+		}
+		const msg = page.error?.message;
+		if (msg) return `${msg} — ${config.siteTitle}.`;
+		return `Ошибка ${page.status ?? ''}. ${config.siteTitle}.`;
+	});
 </script>
 
 <svelte:head>
 	<title>Ошибка {page.status}</title>
+	<meta name="description" content={errorDescription} />
 </svelte:head>
 
 <section class="py-8">

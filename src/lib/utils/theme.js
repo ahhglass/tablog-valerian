@@ -3,8 +3,12 @@ const storageKey = 'theme';
 /** @returns {'light' | 'dark' | null} */
 export function getStoredTheme() {
 	if (typeof localStorage === 'undefined') return null;
-	const value = localStorage.getItem(storageKey);
-	return value === 'light' || value === 'dark' ? value : null;
+	try {
+		const value = localStorage.getItem(storageKey);
+		return value === 'light' || value === 'dark' ? value : null;
+	} catch {
+		return null;
+	}
 }
 
 /** @param {'light' | 'dark'} theme */
@@ -14,7 +18,11 @@ export function applyTheme(theme) {
 
 /** @param {'light' | 'dark'} theme */
 export function setTheme(theme) {
-	localStorage.setItem(storageKey, theme);
+	try {
+		localStorage.setItem(storageKey, theme);
+	} catch {
+		/* private mode / storage disabled */
+	}
 	applyTheme(theme);
 }
 

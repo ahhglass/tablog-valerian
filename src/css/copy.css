@@ -92,22 +92,38 @@
 		text-decoration-line: underline;
 	}
 
-	.copy a:not(.button)[href^='http']::after {
-		content: '\2197';
-		display: inline-block;
-		margin-left: 0.2em;
-		font-size: 0.85em;
-		line-height: 1;
-		text-decoration: none;
-		color: color-mix(in srgb, var(--color-text), transparent 40%);
-	}
-
 	.copy em {
 		font-style: italic;
 	}
 
 	.copy strong {
 		font-weight: bold;
+	}
+
+	.copy kbd {
+		font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New',
+			monospace;
+		font-size: 0.9em;
+		padding: 0.12em 0.45em;
+		border-radius: var(--radius-md);
+		border: 1px solid color-mix(in srgb, var(--color-text), transparent 78%);
+		background-color: var(--color-shade);
+		box-shadow: 0 1px 0 color-mix(in srgb, var(--color-text), transparent 88%);
+		white-space: nowrap;
+	}
+
+	.copy mark {
+		padding: 0.06em 0.2em;
+		border-radius: 2px;
+		background-color: color-mix(in srgb, var(--color-text) 22%, transparent);
+		color: inherit;
+	}
+
+	.copy del,
+	.copy s {
+		text-decoration: line-through;
+		text-decoration-thickness: 1px;
+		color: color-mix(in srgb, var(--color-text), transparent 32%);
 	}
 
 	.copy ul > li {
