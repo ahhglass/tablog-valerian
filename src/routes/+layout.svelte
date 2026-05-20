@@ -3,19 +3,16 @@
 
 	import config from '/src/config';
 	import Logo from '$lib/components/Logo.svelte';
-	import TooltipHint from '$lib/components/TooltipHint.svelte';
+	import KeyboardShortcuts from '$lib/features/KeyboardShortcuts.svelte';
 	import SoundManager from '$lib/features/SoundManager.svelte';
 	import SoundToggle from '$lib/features/SoundToggle.svelte';
 	import ThemeToggle from '$lib/features/ThemeToggle.svelte';
 	import ArrowUpRightIcon from '$lib/icons/ArrowUpRight.svelte';
 
 	import ClosedPostPinModal from '$lib/components/ClosedPostPinModal.svelte';
-	import { navShortcutForPage, shortcuts } from '$lib/config/shortcuts';
 	import { setClosedPinModal } from '$lib/stores/closedPin.svelte.js';
-	import { registerKeyboardShortcuts } from '$lib/utils/keyboard';
 
 	import PageLoader from './PageLoader.svelte';
-	import { onMount } from 'svelte';
 
 	let { data, children } = $props();
 
@@ -28,8 +25,6 @@
 	});
 
 	const postIds = $derived(data.posts.map((post) => post.id));
-
-	onMount(registerKeyboardShortcuts);
 </script>
 
 <svelte:head>
@@ -38,6 +33,7 @@
 </svelte:head>
 
 <PageLoader />
+<KeyboardShortcuts />
 <SoundManager {postIds} />
 
 <div class="max-w-container mx-auto flex min-h-dvh flex-col">
@@ -64,36 +60,9 @@
 	<footer class="mt-8">
 		<nav class="py-4 text-xl md:p-4">
 			<ul class="flex flex-row flex-wrap gap-x-2 p-2">
-				<li>
-					<TooltipHint
-						text={shortcuts.feed.tooltip}
-						shortcutKey={shortcuts.feed.key}
-						placement="top"
-						mdPlacement="top"
-						href={shortcuts.feed.href}
-						class="footer-nav-link inline-flex flex-row gap-0.5 p-2 underline"
-					>
-						{shortcuts.feed.label}
-					</TooltipHint>
-				</li>
+				<li><a class="flex flex-row gap-0.5 p-2 underline" href="/feed.xml">Лента</a></li>
 				{#each data.pages as item (item.id)}
-					{@const nav = navShortcutForPage(item.id)}
-					<li>
-						{#if nav}
-							<TooltipHint
-								text={nav.tooltip}
-								shortcutKey={nav.key}
-								placement="top"
-								mdPlacement="top"
-								href={nav.href}
-								class="footer-nav-link inline-flex flex-row gap-0.5 p-2 underline"
-							>
-								{item.title}
-							</TooltipHint>
-						{:else}
-							<a class="block p-2 underline" href="/{item.id}">{item.title}</a>
-						{/if}
-					</li>
+					<li><a class="block p-2 underline" href="/{item.id}">{item.title}</a></li>
 				{/each}
 				{#each config.social as item (item.href)}
 					<li>

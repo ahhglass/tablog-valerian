@@ -1,20 +1,19 @@
-import { goto } from '$app/navigation';
-
-import { shortcuts } from '$lib/config/shortcuts';
 import { closeClosedPin, isClosedPinOpen } from '$lib/stores/closedPin.svelte.js';
 import { playTapHaptic } from '$lib/utils/haptic';
-import { isSoundEnabled, playClick, toggleSound } from '$lib/utils/sound';
+import { playClick, toggleSound } from '$lib/utils/sound';
 import { toggleTheme } from '$lib/utils/theme';
+
+/** @typedef {{ code: string; label: string; key: string }} Shortcut */
+
+/** @type {Record<string, Shortcut>} */
+export const shortcuts = {
+	theme: { code: 'KeyD', label: 'Тема', key: 'D' },
+	sound: { code: 'KeyS', label: 'Звук', key: 'S' },
+	pinClose: { code: 'Escape', label: 'Закрыть', key: 'Esc' },
+};
 
 export const themeChangeEvent = 'tablog:theme-change';
 export const soundChangeEvent = 'tablog:sound-change';
-
-/** Click + haptic after a keyboard shortcut, only when sound is on. */
-export function playShortcutFeedback() {
-	if (!isSoundEnabled()) return;
-	playClick();
-	playTapHaptic();
-}
 
 /** @param {EventTarget | null} target */
 export function isTypingTarget(target) {
@@ -41,51 +40,6 @@ function dispatchSoundChange() {
 	window.dispatchEvent(new CustomEvent(soundChangeEvent));
 }
 
-/** @param {string} href */
-async function goNav(href) {
-	if (href.endsWith('.xml')) {
-		window.location.assign(href);
-		return;
-	}
-	await goto(href);
-}
-
-/** @type {Record<string, () => void>} */
-const shortcutHandlers = {
-	[shortcuts.theme.code]: () => {
-		toggleTheme();
-		dispatchThemeChange();
-		playShortcutFeedback();
-	},
-	[shortcuts.sound.code]: () => {
-		toggleSound();
-		dispatchSoundChange();
-		playShortcutFeedback();
-	},
-};
-
-for (const item of Object.values(shortcuts)) {
-	if (item.action !== 'navigate' || !item.href) continue;
-	shortcutHandlers[item.code] = () => {
-		void goNav(item.href);
-		playShortcutFeedback();
-	};
-}
-
-function assertNoShortcutConflicts() {
-	if (!import.meta.env.DEV) return;
-
-	const codes = Object.values(shortcuts)
-		.filter((item) => item.action !== 'closePin')
-		.map((item) => item.code);
-
-	if (codes.length !== new Set(codes).size) {
-		console.warn('[keyboard] Duplicate shortcut codes in config:', codes);
-	}
-}
-
-assertNoShortcutConflicts();
-
 /** @param {KeyboardEvent} event */
 export function handleKeyboardShortcut(event) {
 	if (event.code === shortcuts.pinClose.code) {
@@ -99,12 +53,25 @@ export function handleKeyboardShortcut(event) {
 
 	if (!shouldHandleKeydown(event)) return false;
 
-	const handler = shortcutHandlers[event.code];
-	if (!handler) return false;
-
-	handler();
-	event.preventDefault();
-	return true;
+	switch (event.code) {
+		case shortcuts.theme.code:
+			toggleTheme();
+			dispatchThemeChange();
+			event.preventDefault();
+			return true;
+		case shortcuts.sound.code: {
+			const enabled = toggleSound();
+			dispatchSoundChange();
+			if (enabled) {
+				playClick();
+				playTapHaptic();
+			}
+			event.preventDefault();
+			return true;
+		}
+		default:
+			return false;
+	}
 }
 
 /** @param {(event: KeyboardEvent) => void} handler */
