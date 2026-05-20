@@ -3,6 +3,7 @@ import { loadGsapCore } from '$lib/utils/loadGsap.js';
 const xOffset = 6;
 const yOffset = 20;
 const yOffsetBottom = -60;
+const HOLD_MS = 1000; /** Show tooltip only after hovering a post link this long (ms). */
 
 const finePointerMq = '(hover: hover) and (pointer: fine)';
 
@@ -37,8 +38,31 @@ export async function initCursorTooltip(tooltip) {
 
 	/** @type {HTMLElement | null} */
 	let currentTarget = null;
+	/** @type {HTMLElement | null} */
+	let pendingTarget = null;
+	/** @type {ReturnType<typeof setTimeout> | undefined} */
+	let revealTimer;
 	let lastText = '';
 	let cursorOnRight = false;
+
+	function clearRevealTimer() {
+		if (revealTimer !== undefined) {
+			clearTimeout(revealTimer);
+			revealTimer = undefined;
+		}
+	}
+
+	/** @param {HTMLElement} target */
+	function scheduleReveal(target) {
+		clearRevealTimer();
+		pendingTarget = target;
+		revealTimer = setTimeout(() => {
+			revealTimer = undefined;
+			if (pendingTarget !== target) return;
+			pendingTarget = null;
+			onEnter(target);
+		}, HOLD_MS);
+	}
 
 	gsap.set(tooltip, { xPercent: xOffset, yPercent: yOffset, opacity: 0 });
 
@@ -70,6 +94,9 @@ export async function initCursorTooltip(tooltip) {
 
 	/** @param {MouseEvent} event */
 	function onMove(event) {
+		const anchor = currentTarget ?? pendingTarget;
+		if (!anchor) return;
+
 		const windowWidth = window.innerWidth;
 		const windowHeight = window.innerHeight;
 		const scrollY = window.scrollY;
@@ -124,6 +151,8 @@ export async function initCursorTooltip(tooltip) {
 	}
 
 	function hide() {
+		clearRevealTimer();
+		pendingTarget = null;
 		currentTarget = null;
 		lastText = '';
 		fadeOut();
@@ -143,16 +172,22 @@ export async function initCursorTooltip(tooltip) {
 		if (!target) return;
 		if (event.relatedTarget instanceof Node && target.contains(event.relatedTarget)) return;
 		if (!cursorText(target)) return;
-		onEnter(target);
+		if (currentTarget === target) return;
+		scheduleReveal(target);
 	}
 
 	/** @param {PointerEvent} event */
 	function onPointerOut(event) {
 		if (event.pointerType !== 'mouse') return;
 		const target = cursorTargetFromEvent(event);
-		if (!target || currentTarget !== target) return;
+		if (!target) return;
 		if (event.relatedTarget instanceof Node && target.contains(event.relatedTarget)) return;
-		hide();
+
+		if (pendingTarget === target) {
+			clearRevealTimer();
+			pendingTarget = null;
+		}
+		if (currentTarget === target) hide();
 	}
 
 	/** @param {PointerEvent} event */
