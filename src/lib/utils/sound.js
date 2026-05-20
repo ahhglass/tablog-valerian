@@ -31,6 +31,13 @@ export function setSoundEnabled(enabled) {
 	}
 }
 
+/** @returns {boolean} whether sound is enabled after toggle */
+export function toggleSound() {
+	const next = !isSoundEnabled();
+	setSoundEnabled(next);
+	return next;
+}
+
 /** @param {string} path */
 function play(path) {
 	if (!browser || !isSoundEnabled()) return;

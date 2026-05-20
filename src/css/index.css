@@ -53,7 +53,18 @@
 }
 
 @layer components {
-	/* Tooltip wrapper: daisyUI needs inline-block + relative, not theme-toggle grid */
+	kbd {
+		font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono',
+			'Courier New', monospace;
+		font-size: var(--text-xs);
+		padding: 0.1em 0.5em;
+		border-radius: var(--radius-sm);
+		border: 1px solid color-mix(in srgb, var(--color-text), transparent 78%);
+		background-color: var(--color-shade);
+		box-shadow: 0 1px 0 color-mix(in srgb, var(--color-text), transparent 88%);
+		white-space: nowrap;
+	}
+
 	.theme-toggle-wrap {
 		display: inline-block;
 		flex-shrink: 0;
@@ -109,6 +120,12 @@
 		cursor: default;
 		color: color-mix(in srgb, var(--color-text), transparent 35%);
 	}
+
+	.archive-link--closed .archive-link__closed-head {
+		user-select: none;
+		-webkit-user-select: none;
+		-moz-user-select: none;
+	}
 }
 
 @layer base {
@@ -149,6 +166,21 @@
 .tooltip[data-tip]::before {
 	color: var(--color-background);
 	background-color: var(--color-text);
+}
+
+.tooltip > .tooltip-content kbd {
+	color: var(--color-background);
+	background-color: color-mix(in srgb, var(--color-background), transparent 90%);
+	border-color: color-mix(in srgb, var(--color-background), transparent 90%);
+	box-shadow: 0 1px 0 color-mix(in srgb, var(--color-background), transparent 75%);
+}
+
+@media (max-width: 767.98px) {
+	.footer-nav-link.tooltip > .tooltip-content,
+	.footer-nav-link.tooltip::before,
+	.footer-nav-link.tooltip::after {
+		display: none !important;
+	}
 }
 
 /* tooltipDismiss action: hide stuck touch :hover / :focus-visible */

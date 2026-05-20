@@ -100,18 +100,6 @@
 		font-weight: bold;
 	}
 
-	.copy kbd {
-		font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New',
-			monospace;
-		font-size: 0.9em;
-		padding: 0.12em 0.45em;
-		border-radius: var(--radius-md);
-		border: 1px solid color-mix(in srgb, var(--color-text), transparent 78%);
-		background-color: var(--color-shade);
-		box-shadow: 0 1px 0 color-mix(in srgb, var(--color-text), transparent 88%);
-		white-space: nowrap;
-	}
-
 	.copy mark {
 		padding: 0.06em 0.2em;
 		border-radius: 2px;

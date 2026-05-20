@@ -35,6 +35,10 @@
 		dialog?.close();
 	}
 
+	export function isOpen() {
+		return Boolean(dialog?.open);
+	}
+
 	async function onSubmit() {
 		if (!displayId) {
 			error = 'Запись не выбрана';

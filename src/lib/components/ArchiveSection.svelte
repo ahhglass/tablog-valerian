@@ -29,7 +29,7 @@
 							title="Запись закрыта"
 							use:tripleTap={() => openClosedPin({ id: item.id, title: item.title })}
 						>
-							<span class="block">
+							<span class="archive-link__closed-head block">
 								{#if item.pinned}<span class="float-left mr-1 flex"><PinIcon /></span>{/if}
 								<span class="float-left mr-1 flex"><Lock /></span>
 								<span class="underline sm:flex-1">{item.title}</span>

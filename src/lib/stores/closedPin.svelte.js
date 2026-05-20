@@ -10,3 +10,11 @@ export function setClosedPinModal(instance) {
 export function openClosedPin(opts) {
 	modal?.open(opts);
 }
+
+export function closeClosedPin() {
+	modal?.close();
+}
+
+export function isClosedPinOpen() {
+	return Boolean(modal?.isOpen?.());
+}

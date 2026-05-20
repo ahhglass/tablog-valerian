@@ -40,3 +40,10 @@ export function isDarkMode() {
 
 	return systemPrefersDark();
 }
+
+/** @returns {boolean} whether dark mode is active after toggle */
+export function toggleTheme() {
+	const next = isDarkMode() ? 'light' : 'dark';
+	setTheme(next);
+	return next === 'dark';
+}
