@@ -15,9 +15,25 @@ export function getStoredTheme() {
 	}
 }
 
+function repaintScrollbars() {
+	const root = document.documentElement;
+	const top = root.scrollTop;
+
+	root.style.scrollbarWidth = 'auto';
+	void root.offsetHeight;
+	root.style.scrollbarWidth = '';
+	root.scrollTop = top;
+}
+
 /** @param {'light' | 'dark'} theme */
 export function applyTheme(theme) {
 	document.documentElement.dataset.theme = theme;
+
+	if (typeof window !== 'undefined') {
+		requestAnimationFrame(() => {
+			repaintScrollbars();
+		});
+	}
 }
 
 /** @param {'light' | 'dark'} theme */

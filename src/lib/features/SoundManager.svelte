@@ -25,7 +25,7 @@
 			if (!(target instanceof Element)) return;
 			if (
 				!target.closest(
-					'button, a.button, a.site-logo, footer a, .theme-toggle-wrap, .theme-toggle, .sound-toggle'
+					'button, a.button, a.site-logo, footer a, .theme-toggle-wrap, .theme-toggle, .sound-toggle-wrap, .sound-toggle'
 				)
 			)
 				return;

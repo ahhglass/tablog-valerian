@@ -1,4 +1,7 @@
+/* tablog · draw-underline — wavy link hover (GSAP) */
+
 @layer components {
+	/* layout */
 	.text-draw {
 		display: inline-block;
 		position: relative;
@@ -49,10 +52,9 @@
 		line-height: 0;
 	}
 
-	/* .copy a { underline } in copy.css — only wavy line on hover for these */
+	/* copy scope */
 	.copy a.text-draw {
 		text-decoration: none;
-		vertical-align: middle;
 	}
 
 	/* SVG slot out of flow — keeps links on the same line as surrounding text */
@@ -67,7 +69,7 @@
 		margin-top: 0.05em;
 	}
 
-	/* Touch / reduced motion: keep readable static underline */
+	/* touch / reduced motion */
 	@media (hover: none), (prefers-reduced-motion: reduce) {
 		.text-draw {
 			text-decoration: underline;

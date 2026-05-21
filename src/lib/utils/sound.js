@@ -45,6 +45,11 @@ export function setSoundEnabled(enabled) {
 	} catch {
 		/* ignore */
 	}
+	if (enabled) {
+		delete document.documentElement.dataset.sound;
+	} else {
+		document.documentElement.dataset.sound = 'off';
+	}
 }
 
 /** @returns {boolean} включён ли звук после переключения */

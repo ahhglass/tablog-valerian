@@ -1,0 +1,43 @@
+/* tablog · scrollbar — theme-aware thumb */
+
+@layer base {
+	html {
+		--scrollbar-size: 0.5rem;
+		--scrollbar-track: var(--color-background);
+		--scrollbar-thumb: color-mix(in srgb, var(--color-text) 22%, var(--color-background));
+		--scrollbar-thumb-hover: color-mix(in srgb, var(--color-text) 38%, var(--color-background));
+
+		scrollbar-gutter: stable;
+		scrollbar-width: thin;
+		scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+	}
+
+	html * {
+		scrollbar-width: thin;
+		scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+	}
+
+	html *::-webkit-scrollbar {
+		width: var(--scrollbar-size);
+		height: var(--scrollbar-size);
+	}
+
+	html *::-webkit-scrollbar-track {
+		background: var(--scrollbar-track);
+	}
+
+	html *::-webkit-scrollbar-thumb {
+		background-color: var(--scrollbar-thumb);
+		border-radius: 9999px;
+		border: 2px solid var(--scrollbar-track);
+		transition: background-color 200ms ease, border-color 200ms ease;
+	}
+
+	html *::-webkit-scrollbar-thumb:hover {
+		background-color: var(--scrollbar-thumb-hover);
+	}
+
+	html *::-webkit-scrollbar-corner {
+		background: var(--scrollbar-track);
+	}
+}

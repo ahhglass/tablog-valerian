@@ -1,16 +1,25 @@
 /*! Tablo Theme | https://tablo.me */
 
 @import 'tailwindcss';
-@plugin 'daisyui';
 
 /* purgecss start ignore */
 
+/* base */
+@import './scrollbar';
+
+/* primitives */
+@import './swap';
+@import './tooltip';
 @import './buttons';
+@import './toggles';
+
+/* features */
 @import './copy';
 @import './pin-modal';
 @import './draw-underline';
 @import './cursor-tooltip';
 
+/* theme tokens */
 @theme {
 	--color-text: var(--color-neutral-950);
 	--color-background: var(--color-white);
@@ -18,26 +27,19 @@
 
 	--spacing-container: 54rem;
 
-	/* Fluid type: ~320px → ~768px+ (clamp min, preferred, max) */
-  --text-xs: clamp(0.625rem, 0.5625rem + 0.3vw, 0.875rem);
-
-  --text-base: clamp(0.875rem, 0.8125rem + 0.4vw, 1.125rem);
-
+	/* fluid type ~320px → 768px+ */
+	--text-xs: clamp(0.625rem, 0.5625rem + 0.3vw, 0.875rem);
+	--text-base: clamp(0.875rem, 0.8125rem + 0.4vw, 1.125rem);
 	--text-xl: clamp(0.875rem, 0.8125rem + 0.55vw, 1.25rem);
 	--text-xl--line-height: 1.5;
-
 	--text-3xl: clamp(1.25rem, 0.9375rem + 2vw, 1.875rem);
 	--text-3xl--line-height: 1.2;
-
 	--text-4xl: clamp(1.5rem, 1.0625rem + 2.5vw, 2.25rem);
 	--text-4xl--line-height: 1.15;
-
 	--text-5xl: clamp(1.625rem, 1rem + 3.5vw, 3rem);
 	--text-5xl--line-height: 1.1;
-
 	--text-metadata: clamp(0.875rem, 0.8125rem + 0.45vw, 1.25rem);
 	--text-metadata--line-height: 1.4;
-
 	--text-action: clamp(0.875rem, 0.8125rem + 0.4vw, 1.125rem);
 	--text-action--line-height: 1.4;
 }
@@ -51,82 +53,6 @@
 	:root:not([data-theme='light']) {
 		--color-text: var(--color-neutral-100);
 		--color-background: var(--color-neutral-950);
-	}
-}
-
-@layer components {
-	kbd {
-		font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono',
-			'Courier New', monospace;
-		font-size: var(--text-xs);
-		padding: 0.1em 0.5em;
-		border-radius: var(--radius-sm);
-		border: 1px solid color-mix(in srgb, var(--color-text), transparent 78%);
-		background-color: var(--color-shade);
-		box-shadow: 0 1px 0 color-mix(in srgb, var(--color-text), transparent 88%);
-		white-space: nowrap;
-	}
-
-	.theme-toggle-wrap {
-		display: inline-block;
-		flex-shrink: 0;
-		line-height: 0;
-	}
-
-	.theme-toggle {
-		display: grid;
-		place-items: center;
-		width: 3.25rem;
-		height: 3.25rem;
-		flex-shrink: 0;
-		border-radius: 9999px;
-		transition: background-color 200ms ease, color 200ms ease;
-	}
-
-	.theme-toggle__icon {
-		grid-area: 1 / 1;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		transform: scale(1.25);
-	}
-
-	.theme-toggle:hover {
-		color: var(--color-background);
-		background-color: var(--color-text);
-	}
-
-	.sound-toggle {
-		display: inline-grid;
-		place-items: center;
-		vertical-align: middle;
-		line-height: 0;
-		cursor: pointer;
-	}
-
-	.sound-toggle__icon {
-		grid-area: 1 / 1;
-		display: inline-flex;
-		transform: scale(1.2);
-		align-items: center;
-		justify-content: center;
-	}
-
-	.sound-toggle__icon :global(svg) {
-		display: block;
-		width: 100%;
-		height: 100%;
-	}
-
-	.archive-link--closed {
-		cursor: default;
-		color: color-mix(in srgb, var(--color-text), transparent 35%);
-	}
-
-	.archive-link--closed .archive-link__closed-head {
-		user-select: none;
-		-webkit-user-select: none;
-		-moz-user-select: none;
 	}
 }
 
@@ -150,45 +76,12 @@
 		background-color: var(--color-background);
 		transition: background-color 200ms ease, color 200ms ease;
 		text-underline-offset: 2px;
-    text-rendering: optimizeLegibility;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+		text-rendering: optimizeLegibility;
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
+
 		& * {
 			text-decoration-thickness: 1px;
 		}
 	}
-}
-
-/* Unlayered: beats daisyUI @layer utilities (--tt-bg defaults to --color-neutral) */
-.tooltip {
-	--tt-bg: var(--color-text);
-}
-
-.tooltip > .tooltip-content,
-.tooltip[data-tip]::before {
-	color: var(--color-background);
-	background-color: var(--color-text);
-}
-
-.tooltip > .tooltip-content kbd {
-	color: var(--color-background);
-	background-color: color-mix(in srgb, var(--color-background), transparent 90%);
-	border-color: color-mix(in srgb, var(--color-background), transparent 90%);
-	box-shadow: 0 1px 0 color-mix(in srgb, var(--color-background), transparent 75%);
-}
-
-/* tooltipDismiss action: hide stuck touch :hover / :focus-visible */
-.tooltip.tooltip-suppressed > .tooltip-content,
-.tooltip.tooltip-suppressed[data-tip]::before,
-.tooltip.tooltip-suppressed::after {
-	opacity: 0 !important;
-	pointer-events: none;
-}
-
-.theme-toggle.touch-hover-suppressed,
-.theme-toggle.touch-hover-suppressed:hover,
-.theme-toggle-wrap.tooltip-suppressed .theme-toggle,
-.theme-toggle-wrap.tooltip-suppressed .theme-toggle:hover {
-	color: var(--color-text);
-	background-color: transparent;
 }

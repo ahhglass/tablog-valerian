@@ -1,8 +1,11 @@
+/* tablog · copy — mdsvex prose (.copy) */
+
 :root {
 	--copy-space: clamp(1rem, 0.375rem + 2vw, 2rem);
 }
 
 @layer components {
+	/* flow */
 	.copy > :first-child {
 		margin-top: 0;
 	}

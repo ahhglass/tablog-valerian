@@ -7,10 +7,11 @@
 	import Sun from '$lib/icons/Sun.svelte';
 	import { tooltipDismiss } from '$lib/actions/tooltipDismiss';
 	import { themeChangeEvent } from '$lib/utils/keyboard';
+	import { browser } from '$app/environment';
 	import { isDarkMode, setTheme } from '$lib/utils/theme';
 	import { onMount } from 'svelte';
 
-	let dark = $state(false);
+	let dark = $state(browser ? isDarkMode() : false);
 
 	function syncDark() {
 		dark = isDarkMode();
@@ -36,7 +37,7 @@
 			</span>
 		</div>
 	</div>
-	<label class="theme-toggle swap swap-rotate cursor-pointer">
+	<label class="theme-toggle swap swap-rotate cursor-pointer" data-touch-hover-reset>
 		<input
 			type="checkbox"
 			class="sr-only"

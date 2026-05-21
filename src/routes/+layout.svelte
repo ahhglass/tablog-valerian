@@ -15,8 +15,13 @@
 	import { setClosedPinModal } from '$lib/stores/closedPin.svelte.js';
 
 	import PageLoader from './PageLoader.svelte';
+	import { onMount } from 'svelte';
 
 	let { data, children } = $props();
+
+	onMount(() => {
+		document.documentElement.dataset.uiReady = '';
+	});
 
 	/** @type {ClosedPostPinModal | undefined} */
 	let pinModal = $state();

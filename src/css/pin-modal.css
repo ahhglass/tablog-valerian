@@ -1,4 +1,7 @@
+/* tablog · pin-modal — closed post access dialog */
+
 @layer components {
+	/* pin input */
 	.pin-code {
 		display: grid;
 		grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -33,6 +36,7 @@
 		cursor: not-allowed;
 	}
 
+	/* dialog */
 	.pin-modal {
 		margin: auto;
 		max-width: 100%;

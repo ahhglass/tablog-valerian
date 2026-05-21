@@ -4,7 +4,7 @@ function isTouchLike() {
 }
 
 /**
- * Hides daisyUI tooltips on touch after a short delay (focus + sticky :hover).
+ * Hides tooltips on touch after a short delay (focus + sticky :hover).
  * @param {HTMLElement} node
  * @param {number} [delay=600]
  */
@@ -32,7 +32,7 @@ export function tooltipDismiss(node, delay = 600) {
 
 	/** @param {boolean} on */
 	function setHoverSuppressed(on) {
-		node.querySelectorAll('.theme-toggle, [data-touch-hover-reset]').forEach((el) => {
+		node.querySelectorAll('[data-touch-hover-reset]').forEach((el) => {
 			el.classList.toggle('touch-hover-suppressed', on);
 		});
 	}

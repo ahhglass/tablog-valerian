@@ -1,4 +1,5 @@
-/* Unlayered: follows pointer above page content */
+/* tablog · cursor-tooltip — GSAP pointer label (unlayered) */
+
 .cursor-tooltip {
 	z-index: 1000;
 	position: fixed;
@@ -19,6 +20,7 @@
 	margin: 0;
 }
 
+/* touch / reduced motion */
 @media (hover: none), (pointer: coarse), (prefers-reduced-motion: reduce) {
 	.cursor-tooltip {
 		display: none;

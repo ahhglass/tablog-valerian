@@ -1,0 +1,100 @@
+/* tablog · swap — checkbox icon toggle */
+
+@layer components {
+	/* core */
+	.swap {
+		position: relative;
+		display: inline-grid;
+		cursor: pointer;
+		place-content: center;
+		vertical-align: middle;
+		-webkit-user-select: none;
+		user-select: none;
+
+		& input {
+			appearance: none;
+			border: none;
+			grid-area: 1 / 1;
+			place-self: center;
+		}
+
+		& > .swap-on,
+		& > .swap-off,
+		& > .swap-indeterminate {
+			grid-area: 1 / 1;
+			place-self: center;
+		}
+
+		&:not(.swap-rotate) > .swap-on,
+		&:not(.swap-rotate) > .swap-off,
+		&:not(.swap-rotate) > .swap-indeterminate {
+			@media (prefers-reduced-motion: no-preference) {
+				transition-property: opacity;
+				transition-duration: 0.2s;
+				transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
+			}
+		}
+
+		&.swap-rotate > .swap-on,
+		&.swap-rotate > .swap-off,
+		&.swap-rotate > .swap-indeterminate {
+			@media (prefers-reduced-motion: no-preference) {
+				transition-property: transform, rotate, opacity;
+				transition-duration: 0.2s;
+				transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
+			}
+		}
+
+		& .swap-on,
+		& .swap-indeterminate,
+		& input:indeterminate ~ .swap-on {
+			opacity: 0%;
+		}
+
+		& input:is(:checked, :indeterminate) ~ .swap-off {
+			opacity: 0%;
+		}
+
+		& input:checked ~ .swap-on,
+		& input:indeterminate ~ .swap-indeterminate {
+			opacity: 100%;
+			backface-visibility: visible;
+		}
+	}
+
+	/* js state */
+	.swap-active {
+		& .swap-off {
+			opacity: 0%;
+		}
+
+		& .swap-on {
+			opacity: 100%;
+		}
+	}
+
+	/* rotate */
+	.swap-rotate {
+		& .swap-on,
+		& input:indeterminate ~ .swap-on {
+			rotate: 45deg;
+		}
+
+		& input:is(:checked, :indeterminate) ~ .swap-on,
+		&.swap-active .swap-on {
+			rotate: none;
+		}
+
+		& input:is(:checked, :indeterminate) ~ .swap-off,
+		&.swap-active .swap-off {
+			rotate: calc(45deg * -1);
+		}
+	}
+
+	/* no opacity flash before hydration */
+	html:not([data-ui-ready]) .swap > .swap-on,
+	html:not([data-ui-ready]) .swap > .swap-off,
+	html:not([data-ui-ready]) .swap > .swap-indeterminate {
+		transition: none !important;
+	}
+}
