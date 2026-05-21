@@ -1,23 +1,26 @@
+import { building } from '$app/environment';
 import { error } from '@sveltejs/kit';
 
 import { takeUnlock } from '$lib/server/closedAccess';
-import { isClosedPage, loadPage } from '$lib/utils/content';
+import { allContentSlugs, isClosedPage, loadPage, loadPageStub } from '$lib/utils/content';
 
-export const prerender = false;
+export function entries() {
+	return allContentSlugs().map((slug) => ({ slug }));
+}
 
+/** @type {import('./$types').PageServerLoad} */
 export async function load({ params, cookies, url }) {
 	const { slug } = params;
-	const unlocked = takeUnlock(cookies, url, slug);
+	const unlocked = building ? false : takeUnlock(cookies, url, slug);
 
 	if (isClosedPage(slug) && !unlocked) {
-		error(403, { message: 'Эта запись закрыта' });
+		const post = loadPageStub(slug);
+		if (!post) error(404, { message: 'Не найдено' });
+		return { post, locked: true };
 	}
 
-	const post = loadPage(slug, { allowClosed: unlocked });
+	const post = loadPage(slug, { allowClosed: unlocked || !isClosedPage(slug) });
+	if (!post) error(404, { message: 'Не найдено' });
 
-	if (!post) {
-		error(404, { message: 'Не найдено' });
-	}
-
-	return { post };
+	return { post, locked: false };
 }

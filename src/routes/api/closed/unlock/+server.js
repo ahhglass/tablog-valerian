@@ -3,6 +3,8 @@ import { checkPin, pinConfigured, setUnlock } from '$lib/server/closedAccess';
 import { isClosedSlug } from '$lib/server/closedSlugs';
 import { isRateLimited, recordFailedAttempt } from '$lib/server/rateLimit';
 
+export const prerender = false;
+
 export async function POST({ request, cookies, url, getClientAddress }) {
 	if (!pinConfigured()) return json({ ok: false }, { status: 503 });
 

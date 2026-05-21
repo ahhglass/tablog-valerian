@@ -33,6 +33,32 @@ export function isClosedSlug(id) {
 /** @param {string} id */
 export const isClosedPage = isClosedSlug;
 
+/** Все slug для prerender (`entries` в `[slug]`). */
+export function allContentSlugs() {
+	return pages.map((x) => x.id);
+}
+
+/** Заглушка закрытого поста без тела (prerender / без cookie). */
+export function loadPageStub(id) {
+	const page = pages.find((x) => x.id === id);
+	if (!page || !isClosed(page.meta)) return;
+
+	return {
+		id: page.id,
+		title: page.meta.title,
+		date: page.meta.date,
+		pinned: page.meta.pinned,
+		closed: true,
+		author: page.meta.author,
+		authorId: slugify(page.meta.author),
+		tags: parseTags(page.meta.tags),
+		description: page.meta.description,
+		content: null,
+		charCount: 0,
+		readingMinutes: 0,
+	};
+}
+
 export function loadPages() {
 	return pages
 		.filter((x) => !x.meta.date && !isClosed(x.meta))
@@ -85,7 +111,8 @@ export function loadPosts(props) {
 
 export function loadPage(id, { allowClosed = false } = {}) {
 	const page = pages.find((x) => x.id === id);
-	if (!page || (isClosed(page.meta) && !allowClosed)) return;
+	if (!page) return;
+	if (isClosed(page.meta) && !allowClosed) return loadPageStub(id);
 	const content = renderContentBody(page.Page);
 	const stats = getReadingStats(content);
 

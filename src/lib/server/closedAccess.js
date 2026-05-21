@@ -4,13 +4,12 @@
  */
 
 import { createHmac, timingSafeEqual } from 'node:crypto';
-import { env } from '$env/dynamic/private';
 import { CLOSED_PIN as STATIC_PIN } from '$env/static/private';
 
 const NAME = 'tablog_closed';
 
 function secret() {
-	return String(env.CLOSED_PIN ?? STATIC_PIN ?? process.env.CLOSED_PIN ?? '')
+	return String(STATIC_PIN ?? process.env.CLOSED_PIN ?? '')
 		.trim()
 		.replace(/^["']|["']$/g, '');
 }
