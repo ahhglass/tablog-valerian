@@ -2,7 +2,7 @@
 title: Ода Svelte
 author: Gabriel Patrick Thompson
 tags: Разработка, Svelte, SvelteKit, Гик-культура
-date: 2022-12-14
+date: 2023-01-31
 description: Короткая ода Svelte в стихах — лёгкий код, радость от темы блога и благодарность фреймворку, который оживил проект.
 ---
 

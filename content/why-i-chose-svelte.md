@@ -2,7 +2,7 @@
 title: Почему я выбрал Svelte, а не React
 author: Valerian
 tags: Жизнь, Svelte, SvelteKit, Гик-культура
-date: 2024-06-10
+date: 2024-07-11
 description: Сравнение с React и Vue глазами практика — почему компилятор, меньше шаблонного кода и SvelteKit стали моим основным стеком.
 ---
 
