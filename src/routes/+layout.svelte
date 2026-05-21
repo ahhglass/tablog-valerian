@@ -15,12 +15,20 @@
 	import { setClosedPinModal } from '$lib/stores/closedPin.svelte.js';
 
 	import PageLoader from './PageLoader.svelte';
+	import { loadGsap } from '$lib/utils/loadGsap.js';
 	import { onMount } from 'svelte';
 
 	let { data, children } = $props();
 
 	onMount(() => {
 		document.documentElement.dataset.uiReady = '';
+
+		const warmGsap = () => loadGsap();
+		if ('requestIdleCallback' in window) {
+			requestIdleCallback(warmGsap, { timeout: 3000 });
+		} else {
+			setTimeout(warmGsap, 1);
+		}
 	});
 
 	/** @type {ClosedPostPinModal | undefined} */
@@ -37,6 +45,7 @@
 <svelte:head>
 	<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 	<link rel="alternate" type="application/rss+xml" title="RSS" href="/feed.xml" />
+	<link rel="preload" href="/vendor/gsap.min.js" as="script" />
 </svelte:head>
 
 <PageLoader />

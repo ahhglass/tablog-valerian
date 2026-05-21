@@ -60,7 +60,7 @@ function loadScript(src) {
 
 		const script = document.createElement('script');
 		script.src = src;
-		script.async = false;
+		script.async = true;
 		script.onload = () => {
 			script.dataset.loaded = 'true';
 			resolve();

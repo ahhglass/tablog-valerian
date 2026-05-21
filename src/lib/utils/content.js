@@ -47,6 +47,7 @@ export function loadPosts(props) {
 	const opt = {
 		pinned: true,
 		description: false,
+		renderDescription: false,
 		content: false,
 		...props,
 	};
