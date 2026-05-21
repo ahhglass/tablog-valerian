@@ -58,8 +58,13 @@ export function loadPosts(props) {
 				new Date(b.meta.date) - new Date(a.meta.date),
 		)
 		.map((page) => {
-			const content =
-				opt.content || opt.description ? renderContentBody(page.Page) : null;
+			const needsBody =
+				opt.content ||
+				(opt.description &&
+					opt.renderDescription &&
+					!page.meta.description);
+			const content = needsBody ? renderContentBody(page.Page) : null;
+
 			return {
 				id: page.id,
 				title: page.meta.title,
@@ -70,7 +75,7 @@ export function loadPosts(props) {
 				authorId: slugify(page.meta.author),
 				tags: parseTags(page.meta.tags),
 				description: opt.description
-					? page.meta.description || createDescription(content)
+					? page.meta.description || (content ? createDescription(content) : undefined)
 					: undefined,
 				content: opt.content ? content : undefined,
 			};
