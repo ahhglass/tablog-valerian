@@ -6,26 +6,28 @@
 import { render } from 'svelte/server';
 
 import config from '/src/config';
-import { isClosedSlug } from '$lib/server/closedSlugs.js';
+import { isClosed } from '$lib/content/closedness.js';
+import { pathToContentId } from '$lib/content/id.js';
+import { contentModules } from '$lib/content/modules.js';
 import slugify from '$lib/utils/slugify';
 
-const pages = Object.entries(import.meta.glob('/content/**/*.md', { eager: true }))
-	.map(([path, Page]) => ({
-		id: path.match(/content\/(.*)\.\w+$/)[1],
-		meta: Page.metadata,
-		Page: Page.default,
+export { isClosed };
+
+const pages = Object.entries(contentModules)
+	.map(([path, mod]) => ({
+		id: pathToContentId(path),
+		meta: mod.metadata,
+		Page: mod.default,
 	}))
 	.filter((x) => x.meta && !x.meta.draft);
 
-/** @param {Record<string, unknown> | undefined} meta */
-export function isClosed(meta) {
-	const value = meta?.closedness;
-	if (value === true) return true;
-	if (typeof value === 'string') {
-		const normalized = value.trim().toLowerCase();
-		return normalized === 'yes' || normalized === 'true';
-	}
-	return false;
+const closedSlugSet = new Set(
+	pages.filter((page) => isClosed(page.meta)).map((page) => page.id),
+);
+
+/** @param {string} id */
+export function isClosedSlug(id) {
+	return closedSlugSet.has(id);
 }
 
 /** @param {string} id */
