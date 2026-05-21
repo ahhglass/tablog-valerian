@@ -101,19 +101,19 @@
 		rotate: calc(45deg * -1);
 	}
 
-	html:not([data-sound='off']) .sound-toggle.swap .swap-on {
+	html:not([data-ui-ready]):not([data-sound='off']) .sound-toggle.swap .swap-on {
 		opacity: 100%;
 	}
 
-	html:not([data-sound='off']) .sound-toggle.swap .swap-off {
+	html:not([data-ui-ready]):not([data-sound='off']) .sound-toggle.swap .swap-off {
 		opacity: 0%;
 	}
 
-	html[data-sound='off'] .sound-toggle.swap .swap-on {
+	html:not([data-ui-ready])[data-sound='off'] .sound-toggle.swap .swap-on {
 		opacity: 0%;
 	}
 
-	html[data-sound='off'] .sound-toggle.swap .swap-off {
+	html:not([data-ui-ready])[data-sound='off'] .sound-toggle.swap .swap-off {
 		opacity: 100%;
 	}
 }
